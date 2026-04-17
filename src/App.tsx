@@ -6,9 +6,13 @@ import {
   aboutSections,
   articles,
   categoryNotes,
+  homeCta,
+  homeEditorialLogs,
+  homeFeaturedStories,
   homeFaq,
-  homeSidebarNotes,
   homeTopicClusters,
+  siteDescription,
+  siteName,
   siteUrl,
   type Article,
 } from "./content";
@@ -24,27 +28,24 @@ function normalizePathname(pathname: string) {
 
 function buildHomeMeta(): PageMetaInput {
   return {
-    title: "Claude Opus Models | Independent AI Model Guides and Comparisons",
-    description:
-      "Simple guides and comparisons covering Claude, GPT, and Gemini across coding, writing, pricing, and workflow fit.",
+    title: `${siteName} | Independent AI Guides and Comparisons`,
+    description: siteDescription,
     path: "/",
     type: "website",
     schema: [
       {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        name: "Claude Opus Models",
+        name: siteName,
         url: siteUrl,
-        description:
-          "Independent site covering Claude, GPT, and Gemini with model guides, comparisons, and practical buying frameworks.",
+        description: siteDescription,
       },
       {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        name: "Claude Opus Models",
+        name: siteName,
         url: siteUrl,
-        description:
-          "Independent AI model guides with comparison pages, pricing guides, and use-case articles.",
+        description: siteDescription,
       },
     ],
   };
@@ -52,7 +53,7 @@ function buildHomeMeta(): PageMetaInput {
 
 function buildBlogMeta(): PageMetaInput {
   return {
-    title: "AI Model Guides | Claude, GPT, and Gemini Comparisons",
+    title: `AI Model Guides | ${siteName}`,
     description:
       "Browse guides covering Claude Opus, Claude vs GPT, Claude vs Gemini, pricing, coding, and writing use cases.",
     path: "/blog",
@@ -60,35 +61,35 @@ function buildBlogMeta(): PageMetaInput {
     schema: {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      name: "Claude Opus Models Guides",
+      name: `${siteName} Guides`,
       url: `${siteUrl}/blog`,
       description:
-        "Guide archive for Claude Opus Models with model comparisons, pricing pages, and use-case resources.",
+        "Guide archive for Claude Opus Model Insights with model comparisons, pricing pages, and use-case resources.",
     },
   };
 }
 
 function buildAboutMeta(): PageMetaInput {
   return {
-    title: "About Claude Opus Models | What This Site Covers",
+    title: `About ${siteName} | What This Site Covers`,
     description:
-      "Overview of what Claude Opus Models covers and how the guides compare different AI model families.",
+      "Overview of what Claude Opus Model Insights covers and how the guides compare different AI model families.",
     path: "/about",
     type: "website",
     schema: {
       "@context": "https://schema.org",
       "@type": "AboutPage",
-      name: "About Claude Opus Models",
+      name: `About ${siteName}`,
       url: `${siteUrl}/about`,
       description:
-        "Overview of what Claude Opus Models covers and how the guides compare different AI model families.",
+        "Overview of what Claude Opus Model Insights covers and how the guides compare different AI model families.",
     },
   };
 }
 
 function buildArticleMeta(article: Article): PageMetaInput {
   return {
-    title: `${article.title} | Claude Opus Models`,
+    title: `${article.title} | ${siteName}`,
     description: article.description,
     path: article.path,
     type: "article",
@@ -100,11 +101,11 @@ function buildArticleMeta(article: Article): PageMetaInput {
       dateModified: "2026-04-17",
       author: {
         "@type": "Organization",
-        name: "Claude Opus Models",
+        name: siteName,
       },
       publisher: {
         "@type": "Organization",
-        name: "Claude Opus Models",
+        name: siteName,
       },
       mainEntityOfPage: `${siteUrl}${article.path}`,
     },
@@ -113,7 +114,7 @@ function buildArticleMeta(article: Article): PageMetaInput {
 
 function buildNotFoundMeta(): PageMetaInput {
   return {
-    title: "Page Not Found | Claude Opus Models",
+    title: `Page Not Found | ${siteName}`,
     description:
       "The page you requested is not available. Browse the main guides and comparison pages from the homepage.",
     path: "/404",
@@ -121,190 +122,193 @@ function buildNotFoundMeta(): PageMetaInput {
   };
 }
 
+function findArticleBySlug(slug: string) {
+  const article = articles.find((candidate) => candidate.slug === slug);
+
+  if (!article) {
+    throw new Error(`Missing article for slug: ${slug}`);
+  }
+
+  return article;
+}
+
 function HomePage() {
-  const featuredArticle = articles[0];
-  const secondaryArticles = [articles[1], articles[3]];
-  const recentArticles = [articles[2], articles[4], articles[5]];
+  const featuredArticle = findArticleBySlug("claude-opus");
+  const featuredStories = homeFeaturedStories.map((story) => ({
+    ...story,
+    article: findArticleBySlug(story.slug),
+  }));
+  const editorialLogs = homeEditorialLogs.map((story) => ({
+    ...story,
+    article: findArticleBySlug(story.slug),
+  }));
 
   return (
-    <main className="page-shell">
-      <section className="homepage-hero section-shell">
-        <div className="hero-narrative">
-          <div className="issue-line">
-            <span>Claude guides</span>
-            <span>Frontier comparisons</span>
-            <span>Updated April 17, 2026</span>
+    <main className="home-page">
+      <section className="editorial-hero">
+        <div className="home-section-inner">
+          <div className="editorial-hero-grid">
+            <div className="editorial-hero-copy">
+              <p className="hero-kicker">Independent AI model publication</p>
+              <h1 className="editorial-display">
+                Claude Opus insights for <br />
+                <span>real AI model</span> <br />
+                decisions.
+              </h1>
+              <p className="editorial-deck">{siteDescription}</p>
+            </div>
+
+            <aside className="editorial-callout">
+              <p className="callout-kicker">The flagship guide</p>
+              <h2>{featuredArticle.title}</h2>
+              <p>{featuredArticle.description}</p>
+              <a className="text-link" href={featuredArticle.path}>
+                Read the guide
+              </a>
+            </aside>
           </div>
 
-          <div className="hero-copy">
-            <p className="eyebrow">Independent guide</p>
-            <h1>Understand Claude Opus and compare the major AI models with less noise.</h1>
-            <p className="lead">
-              Claudeopusmodels.com explains where Claude Opus fits, how Claude compares with GPT
-              and Gemini, and which model tier makes the most sense for coding, writing, research,
-              and pricing decisions.
+          <article className="editorial-hero-feature">
+            <img
+              alt="Abstract editorial-style visualization representing complex connected reasoning."
+              src="/images/homepage-hero.jpg"
+            />
+            <div className="editorial-hero-overlay">
+              <span className="feature-badge">Flagship guide</span>
+              <h2>Claude Opus explained</h2>
+              <p>{featuredArticle.description}</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section className="editorial-band editorial-band-soft" id="start-reading">
+        <div className="home-section-inner">
+          <div className="editorial-section-head">
+            <h2>The Topical Ecosystem</h2>
+            <p>
+              The site is organized around three practical lanes so visitors can move quickly from
+              understanding Claude Opus to comparing model families and making budget decisions.
             </p>
           </div>
 
-          <div className="hero-actions">
-            <a className="button-link button-primary" href={featuredArticle.path}>
-              Read Claude Opus guide
-            </a>
-            <a className="button-link button-secondary" href="/blog">
-              Browse all guides
-            </a>
-          </div>
-
-          <div className="mini-note-grid">
-            {homeSidebarNotes.map((note) => (
-              <article className="mini-note-card" key={note.title}>
-                <span className="mini-note-label">{note.title}</span>
-                <p>{note.text}</p>
+          <div className="ecosystem-grid">
+            {homeTopicClusters.map((cluster, index) => (
+              <article className="ecosystem-card" key={cluster.title}>
+                <span className="ecosystem-mark">{`0${index + 1}`}</span>
+                <h3>{cluster.title}</h3>
+                <p>{cluster.description}</p>
+                <div className="ecosystem-links">
+                  {cluster.links.map((link) => (
+                    <a href={link.href} key={link.href}>
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
               </article>
             ))}
           </div>
         </div>
-
-        <aside className="hero-rail" aria-label="Featured guide and visual">
-          <div className="hero-visual">
-            <div className="hero-visual-grid" aria-hidden="true">
-              <span className="visual-tower visual-tower-large"></span>
-              <span className="visual-tower visual-tower-mid"></span>
-              <span className="visual-tower visual-tower-small"></span>
-              <span className="visual-tower visual-tower-mid"></span>
-            </div>
-            <div className="hero-visual-caption">
-              <p className="note-label">The flagship guide</p>
-              <h2>Start with Claude Opus when depth and first-pass quality matter most.</h2>
-              <p>
-                Use the main guide first, then move into comparison and pricing pages once you know
-                the workload you care about.
-              </p>
-            </div>
-          </div>
-
-          <ArticleCard article={featuredArticle} variant="feature" />
-        </aside>
       </section>
 
-      <section className="section-shell">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">Core sections</p>
-            <h2>The main paths through the site</h2>
+      <section className="editorial-band">
+        <div className="home-section-inner">
+          <div className="editorial-section-head editorial-section-head-stack">
+            <h2>Curated Insights</h2>
           </div>
-          <p>
-            The homepage is organized around the three questions most visitors usually have: which
-            Claude tier to choose, how the major model families compare, and how to decide by
-            workload and budget.
-          </p>
-        </div>
 
-        <div className="lane-grid">
-          {homeTopicClusters.map((cluster, index) => (
-            <article className="lane-card" key={cluster.title}>
-              <span className="lane-index">{`0${index + 1}`}</span>
-              <h3>{cluster.title}</h3>
-              <p>{cluster.description}</p>
-              <div className="lane-links">
-                {cluster.links.map((link) => (
-                  <a key={link.href} href={link.href}>
-                    {link.label}
-                  </a>
-                ))}
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="section-shell">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">Featured guides</p>
-            <h2>Start with the most useful comparison and coding pages</h2>
-          </div>
-          <p>
-            These are the quickest pages to read if you are deciding between model families or
-            trying to choose the best model for programming work.
-          </p>
-        </div>
-
-        <div className="insight-grid">
-          {secondaryArticles.map((article) => (
-            <ArticleCard article={article} key={article.slug} />
-          ))}
-        </div>
-      </section>
-
-      <section className="section-shell">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">Recent guides</p>
-            <h2>Recent pages across comparison, writing, and pricing</h2>
-          </div>
-          <p>
-            Use these to move from the main Claude Opus guide into more specific decisions about
-            platform fit, writing quality, and what to pay for.
-          </p>
-        </div>
-
-        <div className="log-list">
-          {recentArticles.map((article) => (
-            <article className="log-item" key={article.slug}>
-              <div className="log-meta">
-                <span>{article.updated}</span>
-                <span>{article.kicker}</span>
-              </div>
-              <div className="log-copy">
+          <div className="curated-grid">
+            {featuredStories.map((story) => (
+              <article className="curated-story" key={story.slug}>
+                <div className="curated-image-wrap">
+                  <img alt={story.imageAlt} src={story.image} />
+                </div>
+                <div className="curated-meta">
+                  <span className="topic-chip">{story.label}</span>
+                  <span>{story.article.readTime}</span>
+                </div>
                 <h3>
-                  <a href={article.path}>{article.title}</a>
+                  <a href={story.article.path}>{story.article.title}</a>
                 </h3>
-                <p>{article.description}</p>
-              </div>
-              <a className="log-link" href={article.path}>
-                Read guide
+                <p>{story.summary}</p>
+                <a className="underlined-link" href={story.article.path}>
+                  Read guide
+                </a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="editorial-band editorial-band-muted">
+        <div className="home-section-inner">
+          <div className="editorial-section-head editorial-section-head-inline">
+            <h2>Recent Editorial Logs</h2>
+            <a className="archive-link" href="/blog">
+              View all guides
+            </a>
+          </div>
+
+          <div className="editorial-log-list">
+            {editorialLogs.map((story) => (
+              <article className="editorial-log-item" key={story.slug}>
+                <div className="editorial-log-date">{story.article.updated}</div>
+                <div className="editorial-log-copy">
+                  <h3>
+                    <a href={story.article.path}>{story.article.title}</a>
+                  </h3>
+                  <p>{story.article.description}</p>
+                </div>
+                <div className="editorial-log-tags">
+                  {story.tags.map((tag) => (
+                    <span key={tag}>{tag}</span>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="editorial-band">
+        <div className="home-section-inner faq-editorial-layout">
+          <div>
+            <h2>Clarifications &amp; Context</h2>
+            <p className="faq-editorial-intro">
+              Fundamental questions about the site, what the comparison pages cover, and how to use
+              the guides.
+            </p>
+          </div>
+
+          <div className="faq-editorial-list">
+            {homeFaq.map((item) => (
+              <article className="faq-editorial-item" key={item.question}>
+                <h3>{item.question}</h3>
+                <p>{item.answer}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="editorial-band editorial-cta-band">
+        <div className="home-section-inner">
+          <div className="editorial-cta-panel">
+            <p className="hero-kicker">{homeCta.eyebrow}</p>
+            <h2>{homeCta.title}</h2>
+            <p>{homeCta.text}</p>
+            <div className="editorial-cta-actions">
+              <a className="editorial-button editorial-button-primary" href={homeCta.primary.href}>
+                {homeCta.primary.label}
               </a>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="section-shell">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">All guides</p>
-            <h2>Browse the full set of current guides</h2>
+              <a
+                className="editorial-button editorial-button-secondary"
+                href={homeCta.secondary.href}
+              >
+                {homeCta.secondary.label}
+              </a>
+            </div>
           </div>
-          <p>
-            Each page focuses on one clear question so it is easier to scan, compare options, and
-            move to the next relevant guide.
-          </p>
-        </div>
-
-        <div className="article-grid article-grid-three">
-          {articles.map((article) => (
-            <ArticleCard article={article} key={article.slug} variant="compact" />
-          ))}
-        </div>
-      </section>
-
-      <section className="section-shell faq-shell">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">FAQ</p>
-            <h2>Common questions about Claude, GPT, and Gemini</h2>
-          </div>
-          <p>These short answers give a quick overview before you move into the detailed guides.</p>
-        </div>
-
-        <div className="faq-list">
-          {homeFaq.map((item, index) => (
-            <details key={item.question} open={index === 0}>
-              <summary>{item.question}</summary>
-              <p>{item.answer}</p>
-            </details>
-          ))}
         </div>
       </section>
     </main>

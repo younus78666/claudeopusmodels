@@ -1,53 +1,45 @@
-import { articles, primaryNav } from "../content";
-
-const footerFeatures = [
-  "Model guides that stay useful between vendor updates",
-  "Comparison pages built around workflow fit, not hype",
-  "Pricing coverage that explains spend decisions clearly",
-];
+import { articles, primaryNav, siteName } from "../content";
 
 export default function SiteFooter() {
   return (
-    <footer className="footer">
-      <div className="footer-grid">
-        <div className="footer-brand">
-          <strong>Claude Opus Models</strong>
+    <footer className="site-footer">
+      <div className="site-footer-inner">
+        <div className="site-footer-brand">
+          <a className="site-footer-title" href="/">
+            {siteName}
+          </a>
           <p>
-            Independent guides and comparisons for Claude, GPT, and Gemini. Built to help you make
-            faster model decisions for real work.
+            Independent informational publication covering Claude, GPT, and Gemini with clean model
+            guides, comparison pages, and pricing logic for real workflows.
           </p>
         </div>
 
-        <div>
-          <p className="footer-label">Browse</p>
-          <div className="footer-links">
-            {primaryNav.map((link) => (
-              <a href={link.href} key={link.href}>
-                {link.label}
-              </a>
-            ))}
+        <div className="site-footer-links">
+          <div>
+            <p className="site-footer-label">Journal</p>
+            <div className="site-footer-list">
+              {primaryNav.map((link) => (
+                <a href={link.href} key={link.href}>
+                  {link.label}
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
 
-        <div>
-          <p className="footer-label">Core pages</p>
-          <div className="footer-links">
-            {articles.slice(0, 4).map((article) => (
-              <a href={article.path} key={article.slug}>
-                {article.title}
-              </a>
-            ))}
+          <div>
+            <p className="site-footer-label">Core guides</p>
+            <div className="site-footer-list">
+              {articles.slice(0, 4).map((article) => (
+                <a href={article.path} key={article.slug}>
+                  {article.title}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="footer-meta">
-        {footerFeatures.map((feature) => (
-          <span key={feature}>{feature}</span>
-        ))}
-      </div>
-
-      <p className="disclaimer">
+      <p className="site-footer-disclaimer">
         Claude is a trademark of Anthropic. This website is an independent informational resource
         and is not affiliated with or endorsed by Anthropic, OpenAI, or Google.
       </p>

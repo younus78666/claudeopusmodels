@@ -45,18 +45,35 @@ export type FaqItem = {
   answer: string;
 };
 
+export type HomeFeatureStory = {
+  slug: string;
+  label: string;
+  image: string;
+  imageAlt: string;
+  summary: string;
+};
+
+export type HomeEditorialLog = {
+  slug: string;
+  tags: string[];
+};
+
 export type AboutSection = {
   title: string;
   text: string;
   points: string[];
 };
 
+export const siteName = "Claude Opus Model Insights";
 export const siteUrl = "https://claudeopusmodels.com";
+export const siteDescription =
+  "Independent informational guides explaining Claude Opus and comparing Claude, GPT, and Gemini across coding, writing, pricing, and workflow fit.";
 
 export const primaryNav = [
   { href: "/", label: "Home" },
-  { href: "/blog", label: "Guides" },
+  { href: "/blog", label: "Blog" },
   { href: "/compare/claude-vs-gpt", label: "Compare", matchPrefix: "/compare" },
+  { href: "/guides/best-ai-model-for-coding", label: "Guides", matchPrefix: "/guides" },
   { href: "/pricing/claude-pricing-guide", label: "Pricing", matchPrefix: "/pricing" },
   { href: "/about", label: "About" },
 ];
@@ -78,35 +95,43 @@ export const homeSidebarNotes = [
 
 export const homeTopicClusters: TopicCluster[] = [
   {
-    title: "Choose the right Claude model",
+    title: "Model foundations",
     description:
-      "Start here if you want to understand when Claude Opus is worth paying for and when a lighter tier is the smarter choice.",
+      "Start here if you want to understand where Claude Opus fits, how Claude tiers differ, and when higher-quality output is worth paying for.",
     links: [
       { label: "Claude Opus guide", href: "/models/claude-opus" },
       { label: "Best Claude model for writing", href: "/guides/best-claude-model-for-writing" },
+      { label: "Claude pricing guide", href: "/pricing/claude-pricing-guide" },
     ],
   },
   {
-    title: "Compare the major model families",
+    title: "Frontier comparisons",
     description:
-      "Use these guides when you are choosing between Claude, GPT, and Gemini for the same kind of work.",
+      "Use these guides when the real decision is between Claude, GPT, and Gemini for the same workload or team environment.",
     links: [
       { label: "Claude vs GPT", href: "/compare/claude-vs-gpt" },
       { label: "Claude vs Gemini", href: "/compare/claude-vs-gemini" },
+      { label: "Best AI model for coding", href: "/guides/best-ai-model-for-coding" },
     ],
   },
   {
-    title: "Choose by workload and budget",
+    title: "Commercial decisions",
     description:
-      "These pages focus on practical decisions such as coding, writing, and how much you should really spend.",
+      "These pages focus on coding, writing, pricing, and the practical logic behind choosing a stronger or cheaper model tier.",
     links: [
       { label: "Best AI model for coding", href: "/guides/best-ai-model-for-coding" },
+      { label: "Best Claude model for writing", href: "/guides/best-claude-model-for-writing" },
       { label: "Claude pricing guide", href: "/pricing/claude-pricing-guide" },
     ],
   },
 ];
 
 export const homeFaq: FaqItem[] = [
+  {
+    question: "Is this site affiliated with Anthropic, OpenAI, or Google?",
+    answer:
+      "No. Claude Opus Model Insights is an independent informational site. It covers Claude heavily, but the comparison pages are written to help visitors choose between Claude, GPT, and Gemini based on workload fit.",
+  },
   {
     question: "Which Claude model should most people start with?",
     answer:
@@ -129,10 +154,58 @@ export const homeFaq: FaqItem[] = [
   },
 ];
 
+export const homeFeaturedStories: HomeFeatureStory[] = [
+  {
+    slug: "claude-vs-gpt",
+    label: "Comparison",
+    image: "/images/writing-card.jpg",
+    imageAlt: "Close-up editorial-style image of typewriter keys on warm paper tones.",
+    summary:
+      "Compare Claude and GPT through the questions most buyers actually have: writing quality, coding depth, workflow friction, and the value of a broader platform ecosystem.",
+  },
+  {
+    slug: "best-ai-model-for-coding",
+    label: "Use-case guide",
+    image: "/images/prompt-card.jpg",
+    imageAlt: "Abstract flowing lines in dark teal and black, suggesting complex data streams.",
+    summary:
+      "Choose the right AI coding model by task type, repository complexity, verification cost, and the tradeoff between fast answers and deeper reasoning.",
+  },
+];
+
+export const homeEditorialLogs: HomeEditorialLog[] = [
+  {
+    slug: "claude-vs-gemini",
+    tags: ["Comparison", "Stack fit"],
+  },
+  {
+    slug: "best-claude-model-for-writing",
+    tags: ["Writing", "Claude tiers"],
+  },
+  {
+    slug: "claude-pricing-guide",
+    tags: ["Pricing", "Budget"],
+  },
+];
+
+export const homeCta = {
+  eyebrow: "Start here",
+  title: "Start with the guides that answer the next buying question.",
+  text: "Read the flagship Claude Opus guide first, then move into comparison, coding, writing, or pricing pages based on the work you actually need to do.",
+  primary: {
+    label: "Read Claude Opus guide",
+    href: "/models/claude-opus",
+  },
+  secondary: {
+    label: "Browse all guides",
+    href: "/blog",
+  },
+};
+
 export const aboutSections: AboutSection[] = [
   {
     title: "What this site covers",
-    text: "Claude Opus Models is an independent resource for understanding Claude models and comparing them with GPT and Gemini. The focus is practical decision-making rather than vendor hype.",
+    text: "Claude Opus Model Insights is an independent resource for understanding Claude models and comparing them with GPT and Gemini. The focus is practical decision-making rather than vendor hype.",
     points: [
       "Model guides for understanding the Claude family.",
       "Comparison pages for Claude vs GPT and Claude vs Gemini.",

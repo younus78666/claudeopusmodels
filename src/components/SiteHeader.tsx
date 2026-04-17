@@ -1,4 +1,4 @@
-import { primaryNav } from "../content";
+import { primaryNav, siteName } from "../content";
 
 type SiteHeaderProps = {
   currentPath: string;
@@ -18,23 +18,13 @@ function isActiveLink(currentPath: string, href: string, matchPrefix?: string) {
 
 export default function SiteHeader({ currentPath }: SiteHeaderProps) {
   return (
-    <header className="topbar">
-      <div className="topbar-ribbon">
-        <span>Claude Opus Models</span>
-        <span>Claude, GPT, and Gemini guides</span>
-        <span>Comparisons, use cases, and pricing</span>
-      </div>
-
-      <div className="masthead">
-        <a className="brand" href="/" aria-label="Claude Opus Models home">
-          <span className="brand-mark">CM</span>
-          <span className="brand-text">
-            <strong>Claude Opus Models</strong>
-            <small>Simple guides for choosing the right AI model</small>
-          </span>
+    <header className="editorial-header">
+      <div className="editorial-header-inner">
+        <a className="editorial-brand" href="/" aria-label={`${siteName} home`}>
+          {siteName}
         </a>
 
-        <nav className="main-nav" aria-label="Primary">
+        <nav className="editorial-nav" aria-label="Primary">
           {primaryNav.map((link) => (
             <a
               className={
@@ -47,6 +37,10 @@ export default function SiteHeader({ currentPath }: SiteHeaderProps) {
             </a>
           ))}
         </nav>
+
+        <a className="editorial-header-action" href="/blog">
+          Browse guides
+        </a>
       </div>
     </header>
   );
