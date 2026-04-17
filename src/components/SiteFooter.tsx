@@ -1,31 +1,57 @@
-const footerLinks = [
-  { href: "#family", label: "Claude Models" },
-  { href: "#comparison", label: "Comparisons" },
-  { href: "#methodology", label: "Methodology" },
-  { href: "#faq", label: "FAQ" },
+import { articles, primaryNav } from "../content";
+
+const footerFeatures = [
+  "Model guides that stay useful between vendor updates",
+  "Comparison pages built around workflow fit, not hype",
+  "Pricing coverage that explains spend decisions clearly",
 ];
 
 export default function SiteFooter() {
   return (
-    <footer className="footer" id="footer">
-      <div className="footer-brand">
-        <strong>Claude Opus Models</strong>
-        <p>
-          Independent comparisons and guides for Claude, GPT, and Gemini. Built to help users make
-          faster, clearer model decisions.
-        </p>
+    <footer className="footer">
+      <div className="footer-grid">
+        <div className="footer-brand">
+          <strong>Claude Opus Models</strong>
+          <p>
+            Independent comparisons and editorial guides for Claude, GPT, and Gemini. Built as a
+            compact publication instead of a one-page landing site.
+          </p>
+        </div>
+
+        <div>
+          <p className="footer-label">Browse</p>
+          <div className="footer-links">
+            {primaryNav.map((link) => (
+              <a href={link.href} key={link.href}>
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <p className="footer-label">Core pages</p>
+          <div className="footer-links">
+            {articles.slice(0, 4).map((article) => (
+              <a href={article.path} key={article.slug}>
+                {article.title}
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
-      <div className="footer-links">
-        {footerLinks.map((link) => (
-          <a key={link.href} href={link.href}>
-            {link.label}
-          </a>
+
+      <div className="footer-meta">
+        {footerFeatures.map((feature) => (
+          <span key={feature}>{feature}</span>
         ))}
       </div>
+
       <p className="disclaimer">
-        Claude is a trademark of Anthropic. This site is an independent informational resource and
-        is not affiliated with or endorsed by Anthropic.
+        Claude is a trademark of Anthropic. This website is an independent informational resource
+        and is not affiliated with or endorsed by Anthropic, OpenAI, or Google.
       </p>
     </footer>
   );
 }
+
