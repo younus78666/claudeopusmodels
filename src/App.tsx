@@ -24,9 +24,9 @@ function normalizePathname(pathname: string) {
 
 function buildHomeMeta(): PageMetaInput {
   return {
-    title: "Claude Opus Models | Independent AI Model Blog and Comparisons",
+    title: "Claude Opus Models | Independent AI Model Guides and Comparisons",
     description:
-      "Editorial guides and comparisons covering Claude, GPT, and Gemini across coding, writing, pricing, and workflow fit.",
+      "Simple guides and comparisons covering Claude, GPT, and Gemini across coding, writing, pricing, and workflow fit.",
     path: "/",
     type: "website",
     schema: [
@@ -36,15 +36,15 @@ function buildHomeMeta(): PageMetaInput {
         name: "Claude Opus Models",
         url: siteUrl,
         description:
-          "Editorial site covering Claude, GPT, and Gemini with model guides, comparisons, and buying frameworks.",
+          "Independent site covering Claude, GPT, and Gemini with model guides, comparisons, and practical buying frameworks.",
       },
       {
         "@context": "https://schema.org",
-        "@type": "Blog",
+        "@type": "CollectionPage",
         name: "Claude Opus Models",
         url: siteUrl,
         description:
-          "Independent editorial coverage of AI models with comparison pages, pricing guides, and use-case articles.",
+          "Independent AI model guides with comparison pages, pricing guides, and use-case articles.",
       },
     ],
   };
@@ -52,27 +52,27 @@ function buildHomeMeta(): PageMetaInput {
 
 function buildBlogMeta(): PageMetaInput {
   return {
-    title: "AI Model Blog | Claude, GPT, and Gemini Articles",
+    title: "AI Model Guides | Claude, GPT, and Gemini Comparisons",
     description:
-      "Browse the blog archive for Claude Opus guides, Claude vs GPT comparisons, Gemini comparisons, pricing, and use-case articles.",
+      "Browse guides covering Claude Opus, Claude vs GPT, Claude vs Gemini, pricing, coding, and writing use cases.",
     path: "/blog",
     type: "website",
     schema: {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      name: "Claude Opus Models Blog",
+      name: "Claude Opus Models Guides",
       url: `${siteUrl}/blog`,
       description:
-        "Archive page for the Claude Opus Models editorial site with model guides, comparisons, and pricing coverage.",
+        "Guide archive for Claude Opus Models with model comparisons, pricing pages, and use-case resources.",
     },
   };
 }
 
 function buildAboutMeta(): PageMetaInput {
   return {
-    title: "About Claude Opus Models | Editorial Policy and Topical Map",
+    title: "About Claude Opus Models | What This Site Covers",
     description:
-      "Learn how Claude Opus Models is structured, what pages it covers, and how the site approaches AI model comparisons.",
+      "Overview of what Claude Opus Models covers and how the guides compare different AI model families.",
     path: "/about",
     type: "website",
     schema: {
@@ -81,7 +81,7 @@ function buildAboutMeta(): PageMetaInput {
       name: "About Claude Opus Models",
       url: `${siteUrl}/about`,
       description:
-        "Editorial policy, topical map, and publishing standards for the Claude Opus Models website.",
+        "Overview of what Claude Opus Models covers and how the guides compare different AI model families.",
     },
   };
 }
@@ -130,31 +130,30 @@ function HomePage() {
       <section className="hero-grid section-shell">
         <div className="feature-column">
           <div className="issue-line">
-            <span>Issue 01</span>
-            <span>Independent AI model blog</span>
+            <span>Claude guides</span>
+            <span>Model comparisons</span>
             <span>Updated April 17, 2026</span>
           </div>
 
           <div className="hero-copy">
-            <p className="eyebrow">Editorial hub</p>
-            <h1>Turn this domain into a real AI model publication, not a long landing page.</h1>
+            <p className="eyebrow">Quick start</p>
+            <h1>Choose the right AI model without reading ten different sales pages.</h1>
             <p className="lead">
-              Claudeopusmodels.com now has the right shape for a content cluster: a strong home
-              hub, comparison pages, buying guides, and use-case articles that feel readable like a
-              blog instead of stacked sales sections.
+              Claudeopusmodels.com is a simple informational site for understanding Claude models
+              and comparing them with GPT and Gemini for coding, writing, research, and pricing.
             </p>
           </div>
 
           <ArticleCard article={featuredArticle} variant="feature" />
         </div>
 
-        <aside className="sidebar-stack" aria-label="Editorial notes">
+        <aside className="sidebar-stack" aria-label="Quick notes">
           <div className="note-card note-card-accent">
-            <p className="note-label">Launch direction</p>
-            <h2>Homepage as front page, articles as ranking assets.</h2>
+            <p className="note-label">Quick summary</p>
+            <h2>Start with your workload, then compare the model families that fit it best.</h2>
             <p>
-              The homepage introduces the publication. The article pages do the heavy lifting for
-              search intent and internal linking.
+              If you need deep reasoning and high-context work, start with Claude Opus. If you
+              need broader ecosystem fit, use the comparison guides below.
             </p>
           </div>
 
@@ -170,12 +169,12 @@ function HomePage() {
       <section className="section-shell">
         <div className="section-head">
           <div>
-            <p className="eyebrow">Topical map</p>
-            <h2>The content cluster this domain should grow around</h2>
+            <p className="eyebrow">Start here</p>
+            <h2>Pick the section that matches your question</h2>
           </div>
           <p>
-            Each section below has its own clear search intent. Together they make the domain feel
-            deeper, more useful, and more linkable than a one-page build ever could.
+            These guides are grouped by the kind of decision you are trying to make: choosing a
+            Claude tier, comparing platforms, or deciding by workload and budget.
           </p>
         </div>
 
@@ -199,12 +198,12 @@ function HomePage() {
       <section className="section-shell">
         <div className="section-head">
           <div>
-            <p className="eyebrow">Featured reading</p>
-            <h2>Start with the pages most likely to pull useful traffic</h2>
+            <p className="eyebrow">Featured guides</p>
+            <h2>Useful pages for the most common model decisions</h2>
           </div>
           <p>
-            These are the launch articles worth pushing first because they match broad interest,
-            practical buying questions, and high internal-link value.
+            Start with these if you are comparing major model families or trying to choose a model
+            for coding work.
           </p>
         </div>
 
@@ -218,12 +217,12 @@ function HomePage() {
       <section className="section-shell">
         <div className="section-head">
           <div>
-            <p className="eyebrow">Latest articles</p>
-            <h2>A fuller blog layout gives this site room to grow</h2>
+            <p className="eyebrow">All guides</p>
+            <h2>Browse the current guides and comparison pages</h2>
           </div>
           <p>
-            Instead of forcing every topic into the homepage, the site now publishes each intent as
-            its own clean page with room for a real verdict, a useful table, and related links.
+            Each page focuses on one clear question so it is easier to scan, compare options, and
+            move to the next relevant guide.
           </p>
         </div>
 
@@ -238,12 +237,9 @@ function HomePage() {
         <div className="section-head">
           <div>
             <p className="eyebrow">FAQ</p>
-            <h2>Questions a blogging-style homepage should answer clearly</h2>
+            <h2>Common questions about Claude, GPT, and Gemini</h2>
           </div>
-          <p>
-            These answers keep the front page useful for first-time readers while pushing deeper
-            intent to the article pages.
-          </p>
+          <p>These short answers give a quick overview before you move into the detailed guides.</p>
         </div>
 
         <div className="faq-list">
@@ -265,11 +261,11 @@ function BlogPage() {
   return (
     <main className="page-shell">
       <section className="section-shell page-intro">
-        <p className="eyebrow">Blog archive</p>
-        <h1>Browse the editorial archive by decision type</h1>
+        <p className="eyebrow">Guides</p>
+        <h1>Browse all guides by decision type</h1>
         <p className="lead">
-          This archive is organized around how readers actually search: model guides, comparisons,
-          use-case advice, and pricing logic.
+          These pages are grouped around the questions most users actually have: which model to
+          choose, how the major families compare, and which tier makes sense for the work.
         </p>
       </section>
 
@@ -300,12 +296,11 @@ function AboutPage() {
   return (
     <main className="page-shell">
       <section className="section-shell page-intro">
-        <p className="eyebrow">About the publication</p>
-        <h1>Editorial structure, topical map, and publishing standard</h1>
+        <p className="eyebrow">About</p>
+        <h1>What this site covers and how to use it</h1>
         <p className="lead">
-          The goal of this site is to help readers pick the right model faster. That means clear
-          comparison logic, short verdicts, and a content map that supports more than one search
-          query.
+          The goal of this site is to help you pick the right model faster by using simple guides,
+          practical comparisons, and pages organized around real use cases.
         </p>
       </section>
 
@@ -326,13 +321,10 @@ function AboutPage() {
       <section className="section-shell">
         <div className="section-head">
           <div>
-            <p className="eyebrow">Suggested next pages</p>
-            <h2>The supporting URLs that make the site feel complete</h2>
+            <p className="eyebrow">Core pages</p>
+            <h2>Main guides on the site right now</h2>
           </div>
-          <p>
-            If you keep growing the site, add new article pages in the same editorial style instead
-            of packing everything back into the homepage.
-          </p>
+          <p>These are the main comparison and decision pages currently available on the site.</p>
         </div>
 
         <div className="article-grid article-grid-three">
@@ -412,12 +404,12 @@ function ArticlePage({ article }: { article: Article }) {
           </article>
 
           <article className="note-card">
-            <strong>What this page does</strong>
+            <strong>Page summary</strong>
             <p>{article.description}</p>
           </article>
 
           <article className="note-card">
-            <strong>Related reading</strong>
+            <strong>Related guides</strong>
             <div className="link-list">
               {relatedArticles.map((related) => (
                 <a href={related.path} key={related.slug}>
@@ -437,14 +429,14 @@ function NotFoundPage() {
     <main className="page-shell">
       <section className="section-shell page-intro">
         <p className="eyebrow">Not found</p>
-        <h1>This page is not part of the current site map.</h1>
+        <h1>This page is not available.</h1>
         <p className="lead">
-          Use the homepage or the blog archive to jump back into the published guides and
-          comparisons.
+          Use the homepage or the guides page to jump back into the published comparisons and
+          resources.
         </p>
         <div className="link-list">
           <a href="/">Go to homepage</a>
-          <a href="/blog">Browse the archive</a>
+          <a href="/blog">Browse guides</a>
         </div>
       </section>
     </main>

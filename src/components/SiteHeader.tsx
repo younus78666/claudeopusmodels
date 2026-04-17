@@ -21,8 +21,8 @@ export default function SiteHeader({ currentPath }: SiteHeaderProps) {
     <header className="topbar">
       <div className="topbar-ribbon">
         <span>Claude Opus Models</span>
-        <span>Independent editorial coverage</span>
-        <span>Comparisons, guides, and pricing logic</span>
+        <span>Claude, GPT, and Gemini guides</span>
+        <span>Comparisons, use cases, and pricing</span>
       </div>
 
       <div className="masthead">
@@ -30,7 +30,7 @@ export default function SiteHeader({ currentPath }: SiteHeaderProps) {
           <span className="brand-mark">CM</span>
           <span className="brand-text">
             <strong>Claude Opus Models</strong>
-            <small>AI model blog for real buying and workflow decisions</small>
+            <small>Simple guides for choosing the right AI model</small>
           </span>
         </a>
 

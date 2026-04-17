@@ -13,8 +13,8 @@ export default function SiteFooter() {
         <div className="footer-brand">
           <strong>Claude Opus Models</strong>
           <p>
-            Independent comparisons and editorial guides for Claude, GPT, and Gemini. Built as a
-            compact publication instead of a one-page landing site.
+            Independent guides and comparisons for Claude, GPT, and Gemini. Built to help you make
+            faster model decisions for real work.
           </p>
         </div>
 
@@ -54,4 +54,3 @@ export default function SiteFooter() {
     </footer>
   );
 }
-
