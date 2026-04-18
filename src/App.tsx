@@ -1,536 +1,862 @@
-import ArticleCard from "./components/ArticleCard";
-import ComparisonTable from "./components/ComparisonTable";
+import { useCallback, useEffect, useRef, useState } from "react";
 import SiteFooter from "./components/SiteFooter";
 import SiteHeader from "./components/SiteHeader";
 import {
-  aboutSections,
-  articles,
-  categoryNotes,
-  homeCta,
-  homeEditorialLogs,
-  homeFeaturedStories,
-  homeFaq,
-  homeTopicClusters,
+  aboutEeat,
+  type BlogPost,
+  filterTags,
+  posts,
   siteDescription,
   siteName,
   siteUrl,
-  type Article,
 } from "./content";
 import { type PageMetaInput, usePageMeta } from "./usePageMeta";
 
-function normalizePathname(pathname: string) {
-  if (!pathname || pathname === "/") {
-    return "/";
+/* ------------------------------------------------------------------ */
+/*  Icon                                                               */
+/* ------------------------------------------------------------------ */
+
+function Icon({
+  name,
+  size = 20,
+  color = "currentColor",
+}: {
+  name: string;
+  size?: number;
+  color?: string;
+}) {
+  const paths: Record<string, React.ReactNode> = {
+    search: (
+      <>
+        <circle cx="11" cy="11" r="8" />
+        <path d="M21 21l-4.35-4.35" />
+      </>
+    ),
+    arrow: <path d="M19 12H5m7-7l-7 7 7 7" />,
+    x: <path d="M18 6L6 18M6 6l12 12" />,
+    clock: (
+      <>
+        <circle cx="12" cy="12" r="10" />
+        <path d="M12 6v6l4 2" />
+      </>
+    ),
+    share: (
+      <>
+        <circle cx="18" cy="5" r="3" />
+        <circle cx="6" cy="12" r="3" />
+        <circle cx="18" cy="19" r="3" />
+        <path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98" />
+      </>
+    ),
+    bookmark: (
+      <path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+    ),
+    list: (
+      <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />
+    ),
+    grid: (
+      <path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z" />
+    ),
+  };
+
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {paths[name]}
+    </svg>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Routing helpers                                                    */
+/* ------------------------------------------------------------------ */
+
+type Page = "home" | "post" | "about";
+
+function getInitialRoute(): { page: Page; post: BlogPost | null } {
+  const path = window.location.pathname.replace(/\/+$/, "") || "/";
+
+  if (path === "/about") return { page: "about", post: null };
+
+  if (path.startsWith("/article/")) {
+    const slug = path.replace("/article/", "");
+    const found = posts.find((p) => p.slug === slug);
+    if (found) return { page: "post", post: found };
   }
 
-  return pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
+  return { page: "home", post: null };
 }
+
+function navigate(page: Page, post?: BlogPost) {
+  let url = "/";
+  if (page === "about") url = "/about";
+  else if (page === "post" && post) url = `/article/${post.slug}`;
+  window.history.pushState({}, "", url);
+  window.dispatchEvent(new PopStateEvent("popstate"));
+}
+
+/* ------------------------------------------------------------------ */
+/*  Search Bar                                                         */
+/* ------------------------------------------------------------------ */
+
+function SearchBar({
+  query,
+  setQuery,
+  onClose,
+}: {
+  query: string;
+  setQuery: (q: string) => void;
+  onClose: () => void;
+}) {
+  const ref = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    ref.current?.focus();
+  }, []);
+
+  return (
+    <div className="search-bar">
+      <Icon name="search" size={18} color="var(--text-tertiary)" />
+      <input
+        ref={ref}
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search articles\u2026"
+      />
+      <button onClick={onClose} type="button">
+        <Icon name="x" size={18} />
+      </button>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Hero Card (Featured)                                               */
+/* ------------------------------------------------------------------ */
+
+function HeroCard({
+  post,
+  onClick,
+}: {
+  post: BlogPost;
+  onClick: () => void;
+}) {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <div
+      className="hero-card"
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        background: `linear-gradient(135deg, ${post.color}12 0%, ${post.color}06 100%)`,
+        border: `1px solid ${post.color}30`,
+        transform: hovered ? "translateY(-2px)" : "none",
+        boxShadow: hovered ? `0 12px 32px ${post.color}15` : "none",
+      }}
+    >
+      <div
+        className="hero-card-circle-1"
+        style={{
+          background: `${post.color}08`,
+          border: `1px solid ${post.color}12`,
+        }}
+      />
+      <div
+        className="hero-card-circle-2"
+        style={{ background: `${post.color}06` }}
+      />
+
+      <div className="hero-card-content">
+        <div
+          className="category-badge"
+          style={{
+            background: `${post.color}18`,
+            color: post.color,
+          }}
+        >
+          {post.category}
+        </div>
+        <h2
+          style={{
+            color: hovered ? post.color : "var(--text-primary)",
+          }}
+        >
+          {post.title}
+        </h2>
+        <p className="excerpt">{post.excerpt}</p>
+        <div className="hero-card-meta">
+          <span className="meta-icon">
+            <Icon name="clock" size={14} /> {post.readTime}
+          </span>
+          <span>{post.date}</span>
+          <div style={{ display: "flex", gap: 6 }}>
+            {post.tags.slice(0, 2).map((t) => (
+              <span className="tag" key={t}>
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Grid Card                                                          */
+/* ------------------------------------------------------------------ */
+
+function GridCard({
+  post,
+  onClick,
+  index,
+  bookmarked,
+  toggleBookmark,
+}: {
+  post: BlogPost;
+  onClick: () => void;
+  index: number;
+  bookmarked: boolean;
+  toggleBookmark: () => void;
+}) {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <div
+      className="grid-card"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        animationDelay: `${index * 0.08}s`,
+        animationFillMode: "both",
+      }}
+    >
+      <div
+        className="grid-card-header"
+        onClick={onClick}
+        style={{
+          background: `linear-gradient(135deg, ${post.color}20 0%, ${post.color}08 100%)`,
+        }}
+      >
+        <div className="circle-1" style={{ background: `${post.color}12` }} />
+        <div className="circle-2" style={{ background: `${post.color}10` }} />
+        <div className="diamond" style={{ background: `${post.color}15` }} />
+        <span className="icon" style={{ color: post.color }}>
+          {post.icon}
+        </span>
+      </div>
+
+      <div className="grid-card-body" onClick={onClick}>
+        <div
+          className="category-label"
+          style={{ color: post.color, background: `${post.color}12` }}
+        >
+          {post.category}
+        </div>
+        <h3
+          style={{
+            color: hovered ? post.color : "var(--text-primary)",
+          }}
+        >
+          {post.title}
+        </h3>
+        <p>{post.excerpt}</p>
+      </div>
+
+      <div className="grid-card-footer">
+        <div className="meta">
+          <span>{post.date}</span>
+          <span>&middot;</span>
+          <span>{post.readTime}</span>
+        </div>
+        <button
+          className={`bookmark-btn ${bookmarked ? "active" : ""}`}
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleBookmark();
+          }}
+          type="button"
+        >
+          <Icon name="bookmark" size={16} />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  List Card                                                          */
+/* ------------------------------------------------------------------ */
+
+function ListCard({
+  post,
+  onClick,
+  index,
+  bookmarked,
+  toggleBookmark,
+}: {
+  post: BlogPost;
+  onClick: () => void;
+  index: number;
+  bookmarked: boolean;
+  toggleBookmark: () => void;
+}) {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <div
+      className="list-card"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        animationDelay: `${index * 0.06}s`,
+        animationFillMode: "both",
+        animation: `fadeIn 0.3s ease ${index * 0.06}s both`,
+      }}
+    >
+      <div
+        className="list-card-accent"
+        onClick={onClick}
+        style={{
+          background: `linear-gradient(180deg, ${post.color}20 0%, ${post.color}08 100%)`,
+        }}
+      >
+        <span className="icon" style={{ color: post.color }}>
+          {post.icon}
+        </span>
+      </div>
+
+      <div className="list-card-body" onClick={onClick}>
+        <div className="category-label" style={{ color: post.color }}>
+          {post.category}
+        </div>
+        <h3
+          style={{
+            color: hovered ? post.color : "var(--text-primary)",
+          }}
+        >
+          {post.title}
+        </h3>
+        <p>{post.excerpt}</p>
+        <div className="meta">
+          <span>{post.date}</span>
+          <span>&middot;</span>
+          <span>{post.readTime}</span>
+        </div>
+      </div>
+
+      <div className="list-card-actions">
+        <button
+          className={`bookmark-btn ${bookmarked ? "active" : ""}`}
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleBookmark();
+          }}
+          type="button"
+        >
+          <Icon name="bookmark" size={16} />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Feed Page                                                          */
+/* ------------------------------------------------------------------ */
+
+function FeedPage({
+  filteredPosts,
+  cardStyle,
+  activeTag,
+  setActiveTag,
+  bookmarks,
+  toggleBookmark,
+}: {
+  filteredPosts: BlogPost[];
+  cardStyle: "grid" | "list";
+  activeTag: string;
+  setActiveTag: (tag: string) => void;
+  bookmarks: number[];
+  toggleBookmark: (id: number) => void;
+}) {
+  const featured = filteredPosts[0];
+  const rest = activeTag === "all" ? filteredPosts.slice(1) : filteredPosts;
+  const showHero = activeTag === "all" && featured;
+
+  return (
+    <div>
+      <div className="feed-header">
+        <h1>Latest Insights</h1>
+        <p>
+          Expert analysis of Claude models, AI safety, and building trustworthy
+          AI applications.
+        </p>
+      </div>
+
+      <div className="tag-filters">
+        {filterTags.map((tag) => (
+          <button
+            key={tag}
+            className={`tag-btn ${activeTag === tag ? "active" : ""}`}
+            onClick={() => setActiveTag(tag)}
+            type="button"
+          >
+            {tag}
+          </button>
+        ))}
+      </div>
+
+      {showHero && (
+        <HeroCard
+          post={featured}
+          onClick={() => navigate("post", featured)}
+        />
+      )}
+
+      {(activeTag === "all" ? rest : filteredPosts).length === 0 && (
+        <div className="empty-state">No articles found.</div>
+      )}
+
+      {cardStyle === "grid" ? (
+        <div className="grid-layout">
+          {(activeTag === "all" ? rest : filteredPosts).map((post, i) => (
+            <GridCard
+              key={post.id}
+              post={post}
+              onClick={() => navigate("post", post)}
+              index={i}
+              bookmarked={bookmarks.includes(post.id)}
+              toggleBookmark={() => toggleBookmark(post.id)}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="list-layout">
+          {(activeTag === "all" ? rest : filteredPosts).map((post, i) => (
+            <ListCard
+              key={post.id}
+              post={post}
+              onClick={() => navigate("post", post)}
+              index={i}
+              bookmarked={bookmarks.includes(post.id)}
+              toggleBookmark={() => toggleBookmark(post.id)}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Post Page                                                          */
+/* ------------------------------------------------------------------ */
+
+function PostPage({
+  post,
+  bookmarked,
+  toggleBookmark,
+}: {
+  post: BlogPost;
+  bookmarked: boolean;
+  toggleBookmark: () => void;
+}) {
+  const [readProgress, setReadProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.body.scrollHeight - window.innerHeight;
+      setReadProgress(docHeight > 0 ? Math.min(1, scrollTop / docHeight) : 0);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <div style={{ animation: "fadeIn 0.3s ease" }}>
+      {/* Progress bar */}
+      <div className="reading-progress">
+        <div
+          className="reading-progress-bar"
+          style={{
+            width: `${readProgress * 100}%`,
+            background: post.color,
+          }}
+        />
+      </div>
+
+      {/* Back + Actions */}
+      <div className="post-top-bar">
+        <button
+          className="back-btn"
+          onClick={() => navigate("home")}
+          type="button"
+        >
+          <Icon name="arrow" size={16} /> All articles
+        </button>
+        <div className="post-actions">
+          <button
+            className={`post-action-btn ${bookmarked ? "bookmarked" : ""}`}
+            onClick={toggleBookmark}
+            type="button"
+          >
+            <Icon name="bookmark" size={14} />{" "}
+            {bookmarked ? "Saved" : "Save"}
+          </button>
+          <button className="post-action-btn" type="button">
+            <Icon name="share" size={14} /> Share
+          </button>
+        </div>
+      </div>
+
+      {/* Article Header */}
+      <div
+        className="article-header"
+        style={{
+          background: `linear-gradient(135deg, ${post.color}10 0%, ${post.color}04 100%)`,
+          border: `1px solid ${post.color}20`,
+        }}
+      >
+        <div className="circle-1" style={{ background: `${post.color}08` }} />
+        <div className="circle-2" style={{ background: `${post.color}06` }} />
+
+        <div className="article-header-content">
+          <div
+            className="category-badge"
+            style={{
+              background: `${post.color}18`,
+              color: post.color,
+            }}
+          >
+            {post.category}
+          </div>
+
+          <h1>{post.title}</h1>
+          <p className="excerpt">{post.excerpt}</p>
+
+          <div className="article-author-row">
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <div
+                className="author-avatar"
+                style={{ background: post.color }}
+              >
+                C
+              </div>
+              <div className="author-info">
+                <div className="author-name">{post.author}</div>
+                <div className="author-role">{post.authorRole}</div>
+              </div>
+            </div>
+            <div className="author-divider" />
+            <div className="article-meta">
+              <span>{post.date}</span>
+              <span className="meta-icon">
+                <Icon name="clock" size={13} /> {post.readTime}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Key Takeaway Box */}
+      <div
+        className="key-takeaway"
+        style={{ borderLeftColor: post.color }}
+      >
+        <div className="key-takeaway-label" style={{ color: post.color }}>
+          Key Takeaway
+        </div>
+        <p>{post.keyTakeaway}</p>
+      </div>
+
+      <div className="article-layout">
+        {/* Article Body */}
+        <article className="article-body">
+          {post.body.split("\n\n").map((para, i) => {
+            if (para.startsWith("## ")) {
+              const heading = para.replace("## ", "");
+              return (
+                <h2 key={i} id={`section-${i}`}>
+                  {heading}
+                </h2>
+              );
+            }
+            return (
+              <p
+                key={i}
+                dangerouslySetInnerHTML={{
+                  __html: para.replace(
+                    /\*\*(.*?)\*\*/g,
+                    `<strong style="color:${post.color}">$1</strong>`,
+                  ),
+                }}
+              />
+            );
+          })}
+        </article>
+
+        {/* Sidebar TOC */}
+        {post.toc && (
+          <aside className="article-sidebar">
+            <div className="toc-panel">
+              <div className="toc-label">In this article</div>
+              {post.toc.map((item, i) => (
+                <div
+                  className={`toc-item ${i === 0 ? "active" : ""}`}
+                  key={i}
+                  style={
+                    i === 0
+                      ? { borderLeftColor: post.color }
+                      : undefined
+                  }
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+
+            <div
+              className="expert-panel"
+              style={{
+                background: `${post.color}08`,
+                border: `1px solid ${post.color}15`,
+              }}
+            >
+              <div className="expert-label" style={{ color: post.color }}>
+                Source
+              </div>
+              <p>{post.expertCredentials}</p>
+            </div>
+          </aside>
+        )}
+      </div>
+
+      {/* Tags */}
+      <div className="article-tags">
+        {post.tags.map((t) => (
+          <span className="article-tag" key={t}>
+            {t}
+          </span>
+        ))}
+      </div>
+
+      {/* Continue Reading CTA */}
+      <div className="continue-reading">
+        <div className="label">Continue Reading</div>
+        <p>
+          Explore more insights on Claude models, AI safety, and building
+          trustworthy AI applications.
+        </p>
+        <button
+          className="continue-reading-btn"
+          onClick={() => navigate("home")}
+          type="button"
+        >
+          Browse All Articles
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Profile / About Page                                               */
+/* ------------------------------------------------------------------ */
+
+function ProfilePage() {
+  return (
+    <div className="profile-page">
+      <div className="profile-card">
+        <div className="profile-logo">C</div>
+        <h2>{siteName}</h2>
+        <p>
+          Expert analysis and practical guides for Anthropic's Claude AI
+          models. We cover model capabilities, safety research, benchmarks, and
+          best practices for building trustworthy AI applications.
+        </p>
+      </div>
+
+      <div className="eeat-grid">
+        {aboutEeat.map((item) => (
+          <div className="eeat-card" key={item.label}>
+            <div className="label">{item.label}</div>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Meta builders                                                      */
+/* ------------------------------------------------------------------ */
 
 function buildHomeMeta(): PageMetaInput {
   return {
-    title: `${siteName} | Independent AI Guides and Comparisons`,
+    title: `${siteName} | Expert AI Model Analysis`,
     description: siteDescription,
     path: "/",
     type: "website",
-    schema: [
-      {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        name: siteName,
-        url: siteUrl,
-        description: siteDescription,
-      },
-      {
-        "@context": "https://schema.org",
-        "@type": "CollectionPage",
-        name: siteName,
-        url: siteUrl,
-        description: siteDescription,
-      },
-    ],
-  };
-}
-
-function buildBlogMeta(): PageMetaInput {
-  return {
-    title: `AI Model Guides | ${siteName}`,
-    description:
-      "Browse guides covering Claude Opus, Claude vs GPT, Claude vs Gemini, pricing, coding, and writing use cases.",
-    path: "/blog",
-    type: "website",
     schema: {
       "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      name: `${siteName} Guides`,
-      url: `${siteUrl}/blog`,
-      description:
-        "Guide archive for Claude Opus Model Insights with model comparisons, pricing pages, and use-case resources.",
+      "@type": "WebSite",
+      name: siteName,
+      url: siteUrl,
+      description: siteDescription,
     },
   };
 }
 
 function buildAboutMeta(): PageMetaInput {
   return {
-    title: `About ${siteName} | What This Site Covers`,
-    description:
-      "Overview of what Claude Opus Model Insights covers and how the guides compare different AI model families.",
+    title: `About | ${siteName}`,
+    description: `About ${siteName} — expert analysis of Claude models, AI safety, and trustworthy AI applications.`,
     path: "/about",
     type: "website",
-    schema: {
-      "@context": "https://schema.org",
-      "@type": "AboutPage",
-      name: `About ${siteName}`,
-      url: `${siteUrl}/about`,
-      description:
-        "Overview of what Claude Opus Model Insights covers and how the guides compare different AI model families.",
-    },
   };
 }
 
-function buildArticleMeta(article: Article): PageMetaInput {
+function buildPostMeta(post: BlogPost): PageMetaInput {
   return {
-    title: `${article.title} | ${siteName}`,
-    description: article.description,
-    path: article.path,
+    title: `${post.title} | ${siteName}`,
+    description: post.excerpt,
+    path: `/article/${post.slug}`,
     type: "article",
     schema: {
       "@context": "https://schema.org",
       "@type": "Article",
-      headline: article.title,
-      description: article.description,
-      dateModified: "2026-04-17",
+      headline: post.title,
+      description: post.excerpt,
+      datePublished: post.date,
       author: {
         "@type": "Organization",
         name: siteName,
       },
-      publisher: {
-        "@type": "Organization",
-        name: siteName,
-      },
-      mainEntityOfPage: `${siteUrl}${article.path}`,
     },
   };
 }
 
-function buildNotFoundMeta(): PageMetaInput {
-  return {
-    title: `Page Not Found | ${siteName}`,
-    description:
-      "The page you requested is not available. Browse the main guides and comparison pages from the homepage.",
-    path: "/404",
-    type: "website",
-  };
-}
-
-function findArticleBySlug(slug: string) {
-  const article = articles.find((candidate) => candidate.slug === slug);
-
-  if (!article) {
-    throw new Error(`Missing article for slug: ${slug}`);
-  }
-
-  return article;
-}
-
-function HomePage() {
-  const featuredArticle = findArticleBySlug("claude-opus");
-  const featuredStories = homeFeaturedStories.map((story) => ({
-    ...story,
-    article: findArticleBySlug(story.slug),
-  }));
-  const editorialLogs = homeEditorialLogs.map((story) => ({
-    ...story,
-    article: findArticleBySlug(story.slug),
-  }));
-
-  return (
-    <main className="home-page">
-      <section className="editorial-hero">
-        <div className="home-section-inner">
-          <div className="editorial-hero-grid">
-            <div className="editorial-hero-copy">
-              <p className="hero-kicker">Independent AI model publication</p>
-              <h1 className="editorial-display">
-                Claude Opus insights for <br />
-                <span>real AI model</span> <br />
-                decisions.
-              </h1>
-              <p className="editorial-deck">{siteDescription}</p>
-            </div>
-
-            <aside className="editorial-callout">
-              <p className="callout-kicker">The flagship guide</p>
-              <h2>{featuredArticle.title}</h2>
-              <p>{featuredArticle.description}</p>
-              <a className="text-link" href={featuredArticle.path}>
-                Read the guide
-              </a>
-            </aside>
-          </div>
-
-          <article className="editorial-hero-feature">
-            <img
-              alt="Abstract editorial-style visualization representing complex connected reasoning."
-              src="/images/homepage-hero.jpg"
-            />
-            <div className="editorial-hero-overlay">
-              <span className="feature-badge">Flagship guide</span>
-              <h2>Claude Opus explained</h2>
-              <p>{featuredArticle.description}</p>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section className="editorial-band editorial-band-soft" id="start-reading">
-        <div className="home-section-inner">
-          <div className="editorial-section-head">
-            <h2>The Topical Ecosystem</h2>
-            <p>
-              The site is organized around three practical lanes so visitors can move quickly from
-              understanding Claude Opus to comparing model families and making budget decisions.
-            </p>
-          </div>
-
-          <div className="ecosystem-grid">
-            {homeTopicClusters.map((cluster, index) => (
-              <article className="ecosystem-card" key={cluster.title}>
-                <span className="ecosystem-mark">{`0${index + 1}`}</span>
-                <h3>{cluster.title}</h3>
-                <p>{cluster.description}</p>
-                <div className="ecosystem-links">
-                  {cluster.links.map((link) => (
-                    <a href={link.href} key={link.href}>
-                      {link.label}
-                    </a>
-                  ))}
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="editorial-band">
-        <div className="home-section-inner">
-          <div className="editorial-section-head editorial-section-head-stack">
-            <h2>Curated Insights</h2>
-          </div>
-
-          <div className="curated-grid">
-            {featuredStories.map((story) => (
-              <article className="curated-story" key={story.slug}>
-                <div className="curated-image-wrap">
-                  <img alt={story.imageAlt} src={story.image} />
-                </div>
-                <div className="curated-meta">
-                  <span className="topic-chip">{story.label}</span>
-                  <span>{story.article.readTime}</span>
-                </div>
-                <h3>
-                  <a href={story.article.path}>{story.article.title}</a>
-                </h3>
-                <p>{story.summary}</p>
-                <a className="underlined-link" href={story.article.path}>
-                  Read guide
-                </a>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="editorial-band editorial-band-muted">
-        <div className="home-section-inner">
-          <div className="editorial-section-head editorial-section-head-inline">
-            <h2>Recent Editorial Logs</h2>
-            <a className="archive-link" href="/blog">
-              View all guides
-            </a>
-          </div>
-
-          <div className="editorial-log-list">
-            {editorialLogs.map((story) => (
-              <article className="editorial-log-item" key={story.slug}>
-                <div className="editorial-log-date">{story.article.updated}</div>
-                <div className="editorial-log-copy">
-                  <h3>
-                    <a href={story.article.path}>{story.article.title}</a>
-                  </h3>
-                  <p>{story.article.description}</p>
-                </div>
-                <div className="editorial-log-tags">
-                  {story.tags.map((tag) => (
-                    <span key={tag}>{tag}</span>
-                  ))}
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="editorial-band">
-        <div className="home-section-inner faq-editorial-layout">
-          <div>
-            <h2>Clarifications &amp; Context</h2>
-            <p className="faq-editorial-intro">
-              Fundamental questions about the site, what the comparison pages cover, and how to use
-              the guides.
-            </p>
-          </div>
-
-          <div className="faq-editorial-list">
-            {homeFaq.map((item) => (
-              <article className="faq-editorial-item" key={item.question}>
-                <h3>{item.question}</h3>
-                <p>{item.answer}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="editorial-band editorial-cta-band">
-        <div className="home-section-inner">
-          <div className="editorial-cta-panel">
-            <p className="hero-kicker">{homeCta.eyebrow}</p>
-            <h2>{homeCta.title}</h2>
-            <p>{homeCta.text}</p>
-            <div className="editorial-cta-actions">
-              <a className="editorial-button editorial-button-primary" href={homeCta.primary.href}>
-                {homeCta.primary.label}
-              </a>
-              <a
-                className="editorial-button editorial-button-secondary"
-                href={homeCta.secondary.href}
-              >
-                {homeCta.secondary.label}
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  );
-}
-
-function BlogPage() {
-  const categories = Array.from(new Set(articles.map((article) => article.category)));
-
-  return (
-    <main className="page-shell">
-      <section className="section-shell page-intro">
-        <p className="eyebrow">Guides</p>
-        <h1>Browse all guides by decision type</h1>
-        <p className="lead">
-          These pages are grouped around the questions most users actually have: which model to
-          choose, how the major families compare, and which tier makes sense for the work.
-        </p>
-      </section>
-
-      {categories.map((category) => (
-        <section className="section-shell" key={category}>
-          <div className="section-head">
-            <div>
-              <p className="eyebrow">{category}</p>
-              <h2>{category}</h2>
-            </div>
-            <p>{categoryNotes[category]}</p>
-          </div>
-
-          <div className="article-grid article-grid-two">
-            {articles
-              .filter((article) => article.category === category)
-              .map((article) => (
-                <ArticleCard article={article} key={article.slug} />
-              ))}
-          </div>
-        </section>
-      ))}
-    </main>
-  );
-}
-
-function AboutPage() {
-  return (
-    <main className="page-shell">
-      <section className="section-shell page-intro">
-        <p className="eyebrow">About</p>
-        <h1>What this site covers and how to use it</h1>
-        <p className="lead">
-          The goal of this site is to help you pick the right model faster by using simple guides,
-          practical comparisons, and pages organized around real use cases.
-        </p>
-      </section>
-
-      <section className="about-grid">
-        {aboutSections.map((section) => (
-          <article className="section-shell" key={section.title}>
-            <h2>{section.title}</h2>
-            <p>{section.text}</p>
-            <ul className="bullet-list">
-              {section.points.map((point) => (
-                <li key={point}>{point}</li>
-              ))}
-            </ul>
-          </article>
-        ))}
-      </section>
-
-      <section className="section-shell">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">Core pages</p>
-            <h2>Main guides on the site right now</h2>
-          </div>
-          <p>These are the main comparison and decision pages currently available on the site.</p>
-        </div>
-
-        <div className="article-grid article-grid-three">
-          {articles.map((article) => (
-            <ArticleCard article={article} key={article.slug} variant="compact" />
-          ))}
-        </div>
-      </section>
-    </main>
-  );
-}
-
-function ArticlePage({ article }: { article: Article }) {
-  const relatedArticles = articles.filter((candidate) =>
-    article.relatedSlugs.includes(candidate.slug),
-  );
-
-  return (
-    <main className="page-shell">
-      <section className="section-shell article-hero">
-        <div className="article-hero-copy">
-          <p className="eyebrow">{article.kicker}</p>
-          <h1>{article.title}</h1>
-          <p className="lead">{article.intro}</p>
-
-          <div className="meta-row">
-            <span>{article.category}</span>
-            <span>{article.readTime}</span>
-            <span>Updated {article.updated}</span>
-          </div>
-
-          <div className="tag-row">
-            {article.highlights.map((highlight) => (
-              <span key={highlight}>{highlight}</span>
-            ))}
-          </div>
-        </div>
-
-        <div className="hero-note-panel">
-          <p className="note-label">{article.sidebarTitle}</p>
-          <p>{article.sidebarNote}</p>
-        </div>
-      </section>
-
-      <div className="story-layout">
-        <article className="story-panel">
-          {article.table ? <ComparisonTable table={article.table} /> : null}
-
-          {article.sections.map((section) => (
-            <section className="content-section" id={section.id} key={section.id}>
-              <h2>{section.title}</h2>
-              {section.paragraphs.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-              {section.bullets ? (
-                <ul className="bullet-list">
-                  {section.bullets.map((bullet) => (
-                    <li key={bullet}>{bullet}</li>
-                  ))}
-                </ul>
-              ) : null}
-              {section.callout ? <blockquote>{section.callout}</blockquote> : null}
-            </section>
-          ))}
-        </article>
-
-        <aside className="sidebar-stack story-sidebar">
-          <article className="note-card">
-            <strong>On this page</strong>
-            <div className="toc-list">
-              {article.sections.map((section) => (
-                <a href={`#${section.id}`} key={section.id}>
-                  {section.title}
-                </a>
-              ))}
-            </div>
-          </article>
-
-          <article className="note-card">
-            <strong>Page summary</strong>
-            <p>{article.description}</p>
-          </article>
-
-          <article className="note-card">
-            <strong>Related guides</strong>
-            <div className="link-list">
-              {relatedArticles.map((related) => (
-                <a href={related.path} key={related.slug}>
-                  {related.title}
-                </a>
-              ))}
-            </div>
-          </article>
-        </aside>
-      </div>
-    </main>
-  );
-}
-
-function NotFoundPage() {
-  return (
-    <main className="page-shell">
-      <section className="section-shell page-intro">
-        <p className="eyebrow">Not found</p>
-        <h1>This page is not available.</h1>
-        <p className="lead">
-          Use the homepage or the guides page to jump back into the published comparisons and
-          resources.
-        </p>
-        <div className="link-list">
-          <a href="/">Go to homepage</a>
-          <a href="/blog">Browse guides</a>
-        </div>
-      </section>
-    </main>
-  );
-}
+/* ------------------------------------------------------------------ */
+/*  App                                                                */
+/* ------------------------------------------------------------------ */
 
 export default function App() {
-  const pathname = normalizePathname(window.location.pathname);
-  const matchedArticle = articles.find((article) => article.path === pathname);
+  const [route, setRoute] = useState(getInitialRoute);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeTag, setActiveTag] = useState("all");
+  const [bookmarks, setBookmarks] = useState<number[]>([]);
+  const [cardStyle, setCardStyle] = useState<"grid" | "list">("list");
 
-  let meta = buildNotFoundMeta();
-  let page = <NotFoundPage />;
+  // Listen for popstate (back/forward navigation)
+  useEffect(() => {
+    const onPop = () => setRoute(getInitialRoute());
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
 
-  if (pathname === "/") {
-    meta = buildHomeMeta();
-    page = <HomePage />;
-  } else if (pathname === "/blog") {
-    meta = buildBlogMeta();
-    page = <BlogPage />;
-  } else if (pathname === "/about") {
+  // Scroll to top on page change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [route.page, route.post?.id]);
+
+  const toggleBookmark = useCallback((id: number) => {
+    setBookmarks((b) =>
+      b.includes(id) ? b.filter((x) => x !== id) : [...b, id],
+    );
+  }, []);
+
+  const filteredPosts = posts.filter((p) => {
+    const matchTag = activeTag === "all" || p.tags.includes(activeTag);
+    const matchSearch =
+      !searchQuery ||
+      p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchTag && matchSearch;
+  });
+
+  // Page meta
+  let meta: PageMetaInput;
+  if (route.page === "about") {
     meta = buildAboutMeta();
-    page = <AboutPage />;
-  } else if (matchedArticle) {
-    meta = buildArticleMeta(matchedArticle);
-    page = <ArticlePage article={matchedArticle} />;
+  } else if (route.page === "post" && route.post) {
+    meta = buildPostMeta(route.post);
+  } else {
+    meta = buildHomeMeta();
   }
-
   usePageMeta(meta);
 
   return (
     <div className="site-shell">
-      <SiteHeader currentPath={pathname} />
-      {page}
+      <SiteHeader
+        currentPage={route.page === "post" ? "home" : route.page}
+        searchOpen={searchOpen}
+        setSearchOpen={setSearchOpen}
+      />
+
+      <main
+        className={`main-content ${route.page === "post" ? "post-view" : ""}`}
+      >
+        {searchOpen && (
+          <SearchBar
+            query={searchQuery}
+            setQuery={setSearchQuery}
+            onClose={() => {
+              setSearchOpen(false);
+              setSearchQuery("");
+            }}
+          />
+        )}
+
+        {route.page === "home" && (
+          <FeedPage
+            filteredPosts={filteredPosts}
+            cardStyle={cardStyle}
+            activeTag={activeTag}
+            setActiveTag={setActiveTag}
+            bookmarks={bookmarks}
+            toggleBookmark={toggleBookmark}
+          />
+        )}
+
+        {route.page === "post" && route.post && (
+          <PostPage
+            post={route.post}
+            bookmarked={bookmarks.includes(route.post.id)}
+            toggleBookmark={() => toggleBookmark(route.post!.id)}
+          />
+        )}
+
+        {route.page === "about" && <ProfilePage />}
+      </main>
+
       <SiteFooter />
+
+      {/* Card style toggle */}
+      {route.page === "home" && (
+        <button
+          className="tweak-toggle"
+          onClick={() =>
+            setCardStyle((s) => (s === "grid" ? "list" : "grid"))
+          }
+          title={`Switch to ${cardStyle === "grid" ? "list" : "grid"} view`}
+          type="button"
+        >
+          <Icon name={cardStyle === "grid" ? "list" : "grid"} size={18} />
+        </button>
+      )}
     </div>
   );
 }
