@@ -1068,7 +1068,7 @@ img {
 /* Article Sidebar */
 
 .article-sidebar {
-  width: 220px;
+  width: 280px;
   flex-shrink: 0;
   position: sticky;
   top: 100px;
@@ -1089,22 +1089,30 @@ img {
   letter-spacing: 0.06em;
   color: var(--text-tertiary);
   margin-bottom: 12px;
+  white-space: nowrap;
 }
 
 .toc-item {
+  display: block;
   font-size: 13px;
-  padding: 6px 0;
+  padding: 7px 0 7px 12px;
   color: var(--text-secondary);
   cursor: pointer;
   border-left: 2px solid transparent;
-  padding-left: 10px;
   transition: all 0.15s;
-  line-height: 1.4;
+  line-height: 1.45;
+  text-decoration: none;
+}
+
+.toc-item:hover {
+  color: var(--text-primary);
+  border-left-color: var(--border);
 }
 
 .toc-item.active {
   border-left-color: var(--accent);
   color: var(--text-primary);
+  font-weight: 600;
 }
 
 .expert-panel {
