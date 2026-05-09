@@ -95,6 +95,12 @@
 
   <!-- Articles -->
   <url>
+    <loc>https://claudeopusmodels.com/claude-vs-chatgpt/</loc>
+    <lastmod>2026-05-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
     <loc>https://claudeopusmodels.com/how-to-use-claude-code-vibe-coding-tutorial/</loc>
     <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>

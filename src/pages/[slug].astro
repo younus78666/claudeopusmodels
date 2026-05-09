@@ -80,10 +80,15 @@ const breadcrumbSchema = {
   ],
 };
 
-const schemaArray: object[] = [baseSchema, breadcrumbSchema];
-if (post.extraSchema) {
-  if (Array.isArray(post.extraSchema)) schemaArray.push(...post.extraSchema);
-  else schemaArray.push(post.extraSchema);
+let schemaArray: object[];
+if (post.replaceSchema && post.replaceSchema.length > 0) {
+  schemaArray = post.replaceSchema;
+} else {
+  schemaArray = [baseSchema, breadcrumbSchema];
+  if (post.extraSchema) {
+    if (Array.isArray(post.extraSchema)) schemaArray.push(...post.extraSchema);
+    else schemaArray.push(post.extraSchema);
+  }
 }
 
 const tocItems = (post.toc as Array<{ id: string; label: string } | string>).map(
