@@ -1192,6 +1192,10 @@ img {
   transition: opacity 0.2s ease;
 }
 
+.mobile-drawer[hidden] {
+  display: none !important;
+}
+
 .mobile-drawer.open {
   opacity: 1;
 }
