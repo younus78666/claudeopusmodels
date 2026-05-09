@@ -1,0 +1,234 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TrustHero from "../components/TrustHero.astro";
+import { siteUrl } from "../content";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Cookie Policy - Claude Model Insights",
+  description:
+    "Cookie policy for claudeopusmodels.com explaining what cookies are used and how to manage preferences.",
+  url: `${siteUrl}/cookie-policy/`,
+  datePublished: "2026-05-09",
+  dateModified: "2026-05-09",
+  inLanguage: "en-US",
+  isPartOf: {
+    "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
+  },
+};
+---
+
+<BaseLayout
+  title="Cookie Policy | Claude Model Insights"
+  description="Cookie policy for claudeopusmodels.com. What cookies we use, why we use them, how long they last, and how to manage your preferences. Updated May 2026."
+  path="/cookie-policy/"
+  schema={schema}
+>
+  <TrustHero
+    eyebrow="Legal"
+    title="Cookie Policy"
+    subtitle="What cookies we use, why we use them, how long they last, and how to manage your preferences."
+    accent="#A3787B"
+    meta="Last Updated: May 9, 2026"
+  />
+
+  <article class="trust-page">
+    <h2>What Are Cookies</h2>
+    <p>
+      Cookies are small text files stored on your device (computer, phone,
+      or tablet) when you visit a website. They help websites remember
+      information about your visit, making your next visit easier and the
+      site more useful.
+    </p>
+
+    <h2>Why We Use Cookies</h2>
+    <p>
+      We use cookies for two purposes: keeping the site functional and
+      understanding how visitors use it. We don't use cookies for
+      advertising, tracking across websites, or building marketing profiles.
+    </p>
+
+    <h2>Types of Cookies We Use</h2>
+
+    <h3>Essential Cookies</h3>
+    <p>
+      These cookies are necessary for the site to work properly. They
+      handle basic functions like page navigation and access to secure
+      areas. The site can't function without them.
+    </p>
+
+    <div class="article-table-wrap">
+      <table class="article-table">
+        <thead>
+          <tr>
+            <th>Cookie</th>
+            <th>Provider</th>
+            <th>Purpose</th>
+            <th>Duration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ghost-members-ssr</td>
+            <td>claudeopusmodels.com</td>
+            <td>Session management</td>
+            <td>Session</td>
+          </tr>
+          <tr>
+            <td>ghost-members-ssr.sig</td>
+            <td>claudeopusmodels.com</td>
+            <td>Session signature</td>
+            <td>Session</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      You can't opt out of essential cookies because they're required for
+      the site to work.
+    </p>
+
+    <h3>Analytics Cookies</h3>
+    <p>
+      These cookies help us understand how visitors interact with our site.
+      All data is aggregated and anonymous. We use this information to
+      improve our content and user experience.
+    </p>
+
+    <div class="article-table-wrap">
+      <table class="article-table">
+        <thead>
+          <tr>
+            <th>Cookie</th>
+            <th>Provider</th>
+            <th>Purpose</th>
+            <th>Duration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>_ga</td>
+            <td>Google Analytics</td>
+            <td>Distinguishes unique users</td>
+            <td>2 years</td>
+          </tr>
+          <tr>
+            <td>_ga_[ID]</td>
+            <td>Google Analytics</td>
+            <td>Maintains session state</td>
+            <td>2 years</td>
+          </tr>
+          <tr>
+            <td>_gid</td>
+            <td>Google Analytics</td>
+            <td>Distinguishes unique users</td>
+            <td>24 hours</td>
+          </tr>
+          <tr>
+            <td>_gat</td>
+            <td>Google Analytics</td>
+            <td>Throttles request rate</td>
+            <td>1 minute</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      <strong>Google Analytics 4 (GA4):</strong> We use GA4 with IP
+      anonymization enabled. Google processes this data under their terms
+      of service. Google's privacy policy:
+      <a href="https://policies.google.com/privacy" rel="noopener"
+        >policies.google.com/privacy</a
+      >
+    </p>
+    <p>
+      <strong>Microsoft Clarity</strong> (if enabled): Session replay and
+      heatmap analytics. Data is anonymized. Microsoft's privacy policy:
+      <a href="https://privacy.microsoft.com" rel="noopener"
+        >privacy.microsoft.com</a
+      >
+    </p>
+    <p>
+      Analytics cookies are set only with your consent (for EU/UK visitors
+      via our cookie banner).
+    </p>
+
+    <h2>Cookies We Don't Use</h2>
+    <p>We don't use:</p>
+    <ul>
+      <li>Advertising or marketing cookies</li>
+      <li>Social media tracking pixels (Facebook Pixel, TikTok Pixel)</li>
+      <li>Cross-site tracking cookies</li>
+      <li>Fingerprinting or supercookies</li>
+      <li>Third-party retargeting cookies</li>
+    </ul>
+
+    <h2>Managing Your Cookie Preferences</h2>
+
+    <h3>Cookie Banner</h3>
+    <p>
+      When you first visit our site (EU/UK visitors), a cookie banner asks
+      for your consent to analytics cookies. You can change your preference
+      at any time by clicking "Cookie Preferences" in the site footer.
+    </p>
+
+    <h3>Browser Settings</h3>
+    <p>You can also control cookies through your browser:</p>
+    <p>
+      <strong>Chrome:</strong> Settings, then Privacy and Security, then
+      Cookies and Other Site Data
+    </p>
+    <p>
+      <strong>Safari:</strong> Preferences, then Privacy, then Manage
+      Website Data
+    </p>
+    <p>
+      <strong>Firefox:</strong> Settings, then Privacy and Security, then
+      Cookies and Site Data
+    </p>
+    <p>
+      <strong>Edge:</strong> Settings, then Privacy, Search, and Services,
+      then Cookies
+    </p>
+    <p>
+      <strong>Note:</strong> Blocking all cookies may affect site
+      functionality.
+    </p>
+
+    <h3>Opt-Out Links</h3>
+    <p>
+      <strong>Google Analytics:</strong> Install the opt-out browser add-on
+      at
+      <a href="https://tools.google.com/dlpage/gaoptout" rel="noopener"
+        >tools.google.com/dlpage/gaoptout</a
+      >
+    </p>
+
+    <h2>Do Not Track</h2>
+    <p>
+      Some browsers send a "Do Not Track" (DNT) signal. There's no industry
+      standard for how websites should respond to DNT. We currently don't
+      alter our data collection practices based on DNT signals, but we
+      respect browser-level cookie blocking.
+    </p>
+
+    <h2>Updates to This Policy</h2>
+    <p>
+      We may update this Cookie Policy when we add or remove cookies. The
+      "Last Updated" date at the top reflects the most recent change.
+    </p>
+
+    <h2>Contact</h2>
+    <p>For questions about our use of cookies:</p>
+    <p>
+      <strong>Email:</strong>
+      <a href="mailto:contact@claudeopusmodels.com"
+        >contact@claudeopusmodels.com</a
+      >
+    </p>
+  </article>
+</BaseLayout>

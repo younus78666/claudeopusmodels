@@ -445,6 +445,7 @@ export const footerLegalLinks = [
   { href: "/disclaimer/", label: "Disclaimer" },
   { href: "/privacy-policy/", label: "Privacy Policy" },
   { href: "/terms/", label: "Terms of Service" },
+  { href: "/cookie-policy/", label: "Cookie Policy" },
 ];
 
 export const footerCategoryLinks = [

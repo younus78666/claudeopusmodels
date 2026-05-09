@@ -1,18 +1,371 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ComingSoon from "../components/ComingSoon.astro";
+import TrustHero from "../components/TrustHero.astro";
+import { siteUrl } from "../content";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Privacy Policy - Claude Model Insights",
+  description:
+    "Privacy policy for claudeopusmodels.com covering data collection, usage, GDPR, CCPA, and PIPEDA compliance.",
+  url: `${siteUrl}/privacy-policy/`,
+  datePublished: "2026-05-09",
+  dateModified: "2026-05-09",
+  inLanguage: "en-US",
+  isPartOf: {
+    "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
+  },
+  about: {
+    "@type": "Thing",
+    name: "Privacy Policy",
+    description:
+      "Data protection and privacy practices for claudeopusmodels.com",
+  },
+};
 ---
 
 <BaseLayout
   title="Privacy Policy | Claude Model Insights"
-  description="The privacy policy for Claude Model Insights is being prepared and will be published shortly."
+  description="Privacy policy for claudeopusmodels.com. Learn how we collect, use, and protect your data. GDPR, CCPA, and PIPEDA compliant. Last updated May 2026."
   path="/privacy-policy/"
-  noindex={true}
+  schema={schema}
 >
-  <ComingSoon
+  <TrustHero
+    eyebrow="Legal"
     title="Privacy Policy"
-    description="Our full GDPR and CCPA compliant privacy policy is being finalized. It will detail how Google Analytics, hosting logs, and any future user-submitted data are handled."
+    subtitle="How Claude Model Insights collects, uses, and protects your data. GDPR, CCPA, and PIPEDA compliant."
     accent="#7B7FA3"
-    eta="Week 1 of publishing schedule"
+    meta="Effective: May 9, 2026 · Last Updated: May 9, 2026"
   />
+
+  <article class="trust-page">
+    <h2>1. Introduction</h2>
+    <p>
+      Claude Model Insights ("we," "us," "our") operates claudeopusmodels.com.
+      We respect your privacy and are committed to protecting your personal
+      information. This Privacy Policy explains what data we collect, how we
+      use it, and your rights regarding that data.
+    </p>
+    <p>
+      This policy applies to all visitors of claudeopusmodels.com, regardless
+      of location. We comply with the EU General Data Protection Regulation
+      (GDPR), California Consumer Privacy Act (CCPA), and Canada's Personal
+      Information Protection and Electronic Documents Act (PIPEDA).
+    </p>
+
+    <h2>2. Information We Collect</h2>
+
+    <h3>2.1 Information You Provide Directly</h3>
+    <p>We collect information you voluntarily give us through:</p>
+    <p>
+      <strong>Contact form submissions:</strong> Your name, email address,
+      and the contents of your message when you reach out through our contact
+      page.
+    </p>
+    <p>
+      <strong>Newsletter signup:</strong> Your email address if you subscribe
+      to our email updates. We don't collect any other personal data during
+      signup.
+    </p>
+    <p>
+      We don't require account creation to read our content. We don't
+      process payments or collect billing information.
+    </p>
+
+    <h3>2.2 Information Collected Automatically</h3>
+    <p>
+      When you visit our site, certain data is collected automatically
+      through cookies and similar technologies:
+    </p>
+    <p>
+      <strong>Usage data:</strong> Pages you visit, time spent on each page,
+      referring website, date and time of visit, and general browsing
+      patterns.
+    </p>
+    <p>
+      <strong>Device data:</strong> Browser type and version, operating
+      system, screen resolution, and device type (desktop, mobile, tablet).
+    </p>
+    <p>
+      <strong>Network data:</strong> IP address, approximate geographic
+      location (city/country level, not street address), and internet
+      service provider.
+    </p>
+    <p>
+      This data is collected through Google Analytics 4 (GA4) and, if
+      enabled, Microsoft Clarity for heatmap and session replay analysis.
+    </p>
+
+    <h3>2.3 Information We Don't Collect</h3>
+    <p>
+      We don't collect social security numbers, financial information,
+      health data, biometric data, or data from children under 16. We don't
+      use facial recognition, voice recording, or keystroke logging
+      technologies.
+    </p>
+
+    <h2>3. How We Use Your Information</h2>
+    <p>We use collected information for these specific purposes:</p>
+    <p>
+      <strong>Responding to inquiries.</strong> When you contact us, we use
+      your name and email to reply to your message.
+    </p>
+    <p>
+      <strong>Sending newsletters.</strong> If you subscribe, we send
+      periodic email updates about new articles. Every email includes an
+      unsubscribe link.
+    </p>
+    <p>
+      <strong>Understanding our audience.</strong> Analytics data helps us
+      understand which articles are most useful, where our readers are
+      located, and how we can improve the site.
+    </p>
+    <p>
+      <strong>Maintaining site security.</strong> We use technical data to
+      identify and prevent security threats, spam, and abuse.
+    </p>
+    <p>
+      <strong>Complying with legal obligations.</strong> We may process data
+      when required by applicable laws or regulations.
+    </p>
+    <p>
+      We don't use your data for automated decision-making, profiling,
+      targeted advertising, or selling to third parties.
+    </p>
+
+    <h2>4. Legal Basis for Processing (GDPR)</h2>
+    <p>
+      For visitors in the European Union and United Kingdom, we process
+      personal data under these legal bases:
+    </p>
+    <p>
+      <strong>Consent:</strong> For newsletter subscriptions and
+      non-essential cookies. You can withdraw consent at any time.
+    </p>
+    <p>
+      <strong>Legitimate interest:</strong> For analytics (understanding our
+      audience), site security, and improving our content. We've assessed
+      that these interests don't override your privacy rights given the
+      limited and non-sensitive nature of the data.
+    </p>
+    <p>
+      <strong>Legal obligation:</strong> When we're required to retain or
+      disclose data by applicable law.
+    </p>
+
+    <h2>5. How We Share Your Information</h2>
+    <p>
+      <strong>We don't sell your personal information.</strong> We never
+      have, and we don't plan to.
+    </p>
+    <p>
+      We share data with these categories of service providers, who process
+      it on our behalf:
+    </p>
+    <p>
+      <strong>Analytics providers:</strong> Google Analytics 4 (Google LLC,
+      USA). Google's privacy policy:
+      <a href="https://policies.google.com/privacy" rel="noopener"
+        >policies.google.com/privacy</a
+      >
+    </p>
+    <p>
+      <strong>Heatmap and session replay:</strong> Microsoft Clarity
+      (Microsoft Corporation, USA), if enabled. Microsoft's privacy policy:
+      <a href="https://privacy.microsoft.com" rel="noopener"
+        >privacy.microsoft.com</a
+      >
+    </p>
+    <p>
+      <strong>Email service provider:</strong> For newsletter delivery, we
+      use an email service that processes subscriber email addresses. The
+      specific provider is identified in our newsletter emails.
+    </p>
+    <p>
+      <strong>Hosting provider:</strong> Our website hosting provider
+      processes server logs that contain IP addresses and request data.
+    </p>
+    <p>
+      All service providers are contractually obligated to protect your data
+      and use it only for the purposes we specify.
+    </p>
+    <p>
+      We may also disclose information when required by law, court order, or
+      government request, or when necessary to protect our rights, safety,
+      or property.
+    </p>
+
+    <h2>6. Cookies and Tracking</h2>
+    <p>
+      We use cookies on this site. For detailed information about which
+      cookies we use, their duration, and how to manage them, please see our
+      <a href="/cookie-policy/">Cookie Policy</a>.
+    </p>
+    <p>
+      <strong>Quick summary:</strong> We use essential cookies for site
+      functionality and analytics cookies (GA4) to understand traffic
+      patterns. We don't use advertising or marketing cookies.
+    </p>
+
+    <h2>7. Your Privacy Rights</h2>
+
+    <h3>7.1 Rights for Everyone</h3>
+    <p>Regardless of where you live, you can:</p>
+    <ul>
+      <li>Unsubscribe from our newsletter at any time using the link in any email</li>
+      <li>Contact us to ask what data we hold about you</li>
+      <li>Request deletion of your personal data</li>
+      <li>Request correction of inaccurate data</li>
+    </ul>
+
+    <h3>7.2 Additional Rights for EU/UK Residents (GDPR)</h3>
+    <p>If you're in the European Union or United Kingdom, you also have the right to:</p>
+    <ul>
+      <li>Restrict processing of your data</li>
+      <li>Receive your data in a portable format (data portability)</li>
+      <li>Object to processing based on legitimate interest</li>
+      <li>Lodge a complaint with your local data protection authority</li>
+    </ul>
+    <p>
+      For UK residents, the supervisory authority is the Information
+      Commissioner's Office (ICO) at
+      <a href="https://ico.org.uk" rel="noopener">ico.org.uk</a>. For EU
+      residents, contact your country's data protection authority.
+    </p>
+
+    <h3>7.3 Additional Rights for California Residents (CCPA)</h3>
+    <p>If you're a California resident, you have the right to:</p>
+    <ul>
+      <li>Know what personal information we collect, use, and disclose</li>
+      <li>Request deletion of your personal information</li>
+      <li>Opt out of the sale of personal information (we don't sell data, so this doesn't apply)</li>
+      <li>Not be discriminated against for exercising your rights</li>
+    </ul>
+    <p>
+      We don't sell personal information. We don't share personal
+      information for cross-context behavioral advertising.
+    </p>
+
+    <h3>7.4 Additional Rights for Canadian Residents (PIPEDA)</h3>
+    <p>If you're a Canadian resident, you have the right to:</p>
+    <ul>
+      <li>Access your personal information held by us</li>
+      <li>Challenge the accuracy and completeness of your data</li>
+      <li>Withdraw consent for data collection (subject to legal or contractual restrictions)</li>
+    </ul>
+
+    <h3>7.5 How to Exercise Your Rights</h3>
+    <p>
+      Email us at
+      <a href="mailto:contact@claudeopusmodels.com"
+        >contact@claudeopusmodels.com</a
+      > with your request. We'll respond within 30 days (45 days for CCPA
+      requests if an extension is needed). We may need to verify your
+      identity before processing certain requests.
+    </p>
+
+    <h2>8. Data Retention</h2>
+    <p>We keep personal information only as long as necessary:</p>
+    <p>
+      <strong>Contact form messages:</strong> 2 years from the date of your
+      inquiry, then deleted.
+    </p>
+    <p>
+      <strong>Newsletter subscriber data:</strong> Until you unsubscribe,
+      then deleted within 30 days.
+    </p>
+    <p>
+      <strong>Analytics data:</strong> Google Analytics retains data for 14
+      months (our GA4 retention setting). After that period,
+      individual-level data is automatically deleted by Google.
+    </p>
+    <p>
+      <strong>Server logs:</strong> Retained by our hosting provider for up
+      to 90 days for security purposes.
+    </p>
+
+    <h2>9. Data Security</h2>
+    <p>We protect your information using:</p>
+    <ul>
+      <li>SSL/TLS encryption for all data transmitted between your browser and our site</li>
+      <li>Secure hosting infrastructure with regular security updates</li>
+      <li>Access controls limiting who can view personal data</li>
+      <li>Regular review of our data collection and processing practices</li>
+    </ul>
+    <p>
+      No system is completely secure. While we take reasonable measures to
+      protect your data, we can't guarantee absolute security of information
+      transmitted over the internet.
+    </p>
+
+    <h2>10. International Data Transfers</h2>
+    <p>
+      Our site is operated from Pakistan. If you're visiting from outside
+      Pakistan, your data may be transferred to and processed in countries
+      that may not have data protection laws equivalent to your home country.
+    </p>
+    <p>
+      For EU/UK visitors: We rely on Google's and Microsoft's Standard
+      Contractual Clauses (SCCs) for data transferred to the United States
+      through their analytics services.
+    </p>
+
+    <h2>11. Children's Privacy</h2>
+    <p>
+      Our site isn't intended for children under 16. We don't knowingly
+      collect personal information from anyone under 16. If you believe
+      we've inadvertently collected data from a child, please contact us
+      immediately at
+      <a href="mailto:contact@claudeopusmodels.com"
+        >contact@claudeopusmodels.com</a
+      > and we'll delete it promptly.
+    </p>
+
+    <h2>12. Third-Party Links</h2>
+    <p>
+      Our articles link to external websites (including Anthropic, GitHub,
+      and various AI tools). We're not responsible for the privacy practices
+      of these sites. We encourage you to review their privacy policies
+      before providing them with personal information.
+    </p>
+
+    <h2>13. AI-Generated Content Disclosure</h2>
+    <p>
+      We use AI tools (including Claude) as part of our editorial process.
+      AI tools don't have access to your personal data collected through
+      this site. Our use of AI is limited to content creation and doesn't
+      involve processing visitor personal information. See our
+      <a href="/editorial-policy/">Editorial Policy</a> for details.
+    </p>
+
+    <h2>14. Changes to This Policy</h2>
+    <p>
+      We may update this Privacy Policy periodically. The "Last Updated"
+      date at the top reflects the most recent revision. We encourage you
+      to review this page occasionally. Significant changes will be
+      communicated via a notice on our homepage.
+    </p>
+
+    <h2>15. Contact Us</h2>
+    <p>
+      For privacy-related questions, concerns, or to exercise your rights:
+    </p>
+    <p>
+      <strong>Email:</strong>
+      <a href="mailto:contact@claudeopusmodels.com"
+        >contact@claudeopusmodels.com</a
+      >
+    </p>
+    <p>
+      <strong>Data Controller:</strong> Muhammad Younus, Claude Model
+      Insights, Karachi, Pakistan
+    </p>
+    <p>
+      We aim to resolve all privacy concerns directly. If we can't resolve
+      your concern, you have the right to contact the relevant data
+      protection authority in your jurisdiction.
+    </p>
+  </article>
 </BaseLayout>

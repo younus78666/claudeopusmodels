@@ -1,18 +1,231 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ComingSoon from "../components/ComingSoon.astro";
+import TrustHero from "../components/TrustHero.astro";
+import { siteUrl } from "../content";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Terms of Service - Claude Model Insights",
+  description:
+    "Terms of service for claudeopusmodels.com covering usage rules, intellectual property, and limitations.",
+  url: `${siteUrl}/terms/`,
+  datePublished: "2026-05-09",
+  dateModified: "2026-05-09",
+  inLanguage: "en-US",
+  isPartOf: {
+    "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
+  },
+};
 ---
 
 <BaseLayout
   title="Terms of Service | Claude Model Insights"
-  description="The terms of service for Claude Model Insights are being prepared and will be published shortly."
+  description="Terms of service for claudeopusmodels.com. Usage rules, intellectual property, disclaimers, and limitations of liability. Last updated May 2026."
   path="/terms/"
-  noindex={true}
+  schema={schema}
 >
-  <ComingSoon
+  <TrustHero
+    eyebrow="Legal"
     title="Terms of Service"
-    description="Our terms of service are being finalized. They will cover acceptable use, intellectual property, code-example licensing, and limitation of liability."
+    subtitle="Usage rules, intellectual property, disclaimers, and limitations of liability for Claude Model Insights."
     accent="#8B7355"
-    eta="Week 1 of publishing schedule"
+    meta="Effective: May 9, 2026 · Last Updated: May 9, 2026"
   />
+
+  <article class="trust-page">
+    <h2>1. Acceptance of Terms</h2>
+    <p>
+      By accessing or using claudeopusmodels.com ("the Site"), you agree to
+      be bound by these Terms of Service ("Terms"). If you don't agree with
+      any part of these Terms, please don't use the Site.
+    </p>
+
+    <h2>2. Description of Service</h2>
+    <p>
+      Claude Model Insights is an informational blog and publication
+      covering Claude AI models, vibe coding, and AI-assisted development.
+      We provide articles, tutorials, comparisons, and guides. All content
+      is free to read.
+    </p>
+    <p>
+      We're an independent publication. We aren't affiliated with, endorsed
+      by, or officially connected to Anthropic, PBC.
+    </p>
+
+    <h2>3. User Eligibility</h2>
+    <p>
+      You must be at least 16 years old to use this Site. By using the
+      Site, you represent that you meet this age requirement.
+    </p>
+
+    <h2>4. Acceptable Use</h2>
+    <p>When using our Site, you agree not to:</p>
+    <ul>
+      <li>Use the Site for any unlawful purpose or in violation of any applicable law</li>
+      <li>Attempt to gain unauthorized access to our systems, servers, or networks</li>
+      <li>Scrape, crawl, or use automated tools to extract content without our written permission</li>
+      <li>Reproduce, distribute, or republish our content without attribution and a link back to the original article</li>
+      <li>Upload or transmit viruses, malware, or other harmful code</li>
+      <li>Interfere with the Site's operation or other users' experience</li>
+      <li>Impersonate any person or entity or misrepresent your affiliation</li>
+    </ul>
+
+    <h2>5. Intellectual Property</h2>
+    <p>
+      All content on claudeopusmodels.com, including articles, graphics,
+      logos, images, and code examples, is owned by Claude Model Insights
+      or used under license. This content is protected by copyright and
+      other intellectual property laws.
+    </p>
+    <p>
+      <strong>What you can do:</strong> You may read, share links to, and
+      quote brief excerpts (under 200 words) from our articles for
+      non-commercial purposes, provided you include clear attribution and a
+      link to the original article.
+    </p>
+    <p>
+      <strong>What you can't do:</strong> You can't republish full
+      articles, use our content in commercial products, train AI models on
+      our content without permission, or remove copyright notices.
+    </p>
+
+    <h2>6. Code Examples and Technical Content</h2>
+    <p>
+      Code examples provided in our tutorials are offered for educational
+      purposes. You're free to use code snippets in your own projects
+      (commercial or non-commercial) without attribution.
+    </p>
+    <p>
+      However, we provide code "as is" without warranties. We're not
+      responsible for any issues that arise from implementing code examples
+      from our tutorials. Always review AI-generated code before deploying
+      it to production, especially for applications handling sensitive data.
+    </p>
+
+    <h2>7. User Communications</h2>
+    <p>
+      When you contact us through our contact form or email, you grant us
+      permission to use your feedback, suggestions, and ideas without
+      restriction or compensation. We won't publicly share your personal
+      information from communications without your consent.
+    </p>
+
+    <h2>8. Disclaimer of Warranties</h2>
+    <p>
+      THE SITE AND ALL CONTENT ARE PROVIDED "AS IS" AND "AS AVAILABLE"
+      WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED. WE DISCLAIM ALL
+      WARRANTIES INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF
+      MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND
+      NON-INFRINGEMENT.
+    </p>
+    <p>We don't warrant that:</p>
+    <ul>
+      <li>The Site will be uninterrupted, secure, or error-free</li>
+      <li>Content will be accurate, complete, or current at all times</li>
+      <li>Errors or defects will be corrected</li>
+    </ul>
+    <p>
+      AI tools and pricing change frequently. Information accurate on the
+      date of publication may become outdated. We update articles
+      periodically but can't guarantee every detail reflects the latest
+      state of every product mentioned.
+    </p>
+
+    <h2>9. Limitation of Liability</h2>
+    <p>
+      TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, CLAUDE MODEL
+      INSIGHTS, ITS OWNER, AND CONTRIBUTORS SHALL NOT BE LIABLE FOR ANY
+      INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES
+      ARISING FROM YOUR USE OF THE SITE.
+    </p>
+    <p>This includes, without limitation, damages for:</p>
+    <ul>
+      <li>Loss of profits, revenue, or business opportunities</li>
+      <li>Data loss or corruption</li>
+      <li>Code errors or system failures resulting from following our tutorials</li>
+      <li>Financial decisions based on information published on the Site</li>
+      <li>Any reliance on AI-generated code or technical advice</li>
+    </ul>
+    <p>
+      OUR TOTAL LIABILITY FOR ANY CLAIM ARISING FROM THESE TERMS OR YOUR
+      USE OF THE SITE SHALL NOT EXCEED $100 USD.
+    </p>
+
+    <h2>10. Indemnification</h2>
+    <p>
+      You agree to indemnify and hold harmless Claude Model Insights, its
+      owner, and contributors from any claims, losses, damages,
+      liabilities, and expenses (including legal fees) arising from your
+      use of the Site, your violation of these Terms, or your violation of
+      any third party's rights.
+    </p>
+
+    <h2>11. Third-Party Links and Services</h2>
+    <p>
+      Our articles reference and link to third-party products, services,
+      and websites (including Anthropic, Cursor, Bolt.new, and others).
+      These links are provided for informational purposes. We don't
+      endorse, control, or assume responsibility for third-party content,
+      products, or services.
+    </p>
+    <p>
+      Your interactions with third-party services are solely between you
+      and those parties. We encourage you to review their terms and privacy
+      policies.
+    </p>
+
+    <h2>12. Modifications to the Site</h2>
+    <p>
+      We reserve the right to modify, suspend, or discontinue any aspect of
+      the Site at any time without notice. We won't be liable to you or any
+      third party for any modification, suspension, or discontinuation.
+    </p>
+
+    <h2>13. Changes to These Terms</h2>
+    <p>
+      We may update these Terms periodically. The "Last Updated" date at
+      the top reflects the most recent revision. Your continued use of the
+      Site after changes constitutes acceptance of the revised Terms. We
+      encourage you to review this page occasionally.
+    </p>
+
+    <h2>14. Governing Law and Disputes</h2>
+    <p>
+      These Terms are governed by and construed in accordance with the laws
+      of Pakistan, without regard to conflict of law principles.
+    </p>
+    <p>
+      Any disputes arising from these Terms or your use of the Site that
+      can't be resolved informally shall be submitted to the exclusive
+      jurisdiction of the courts of Karachi, Pakistan.
+    </p>
+
+    <h2>15. Severability</h2>
+    <p>
+      If any provision of these Terms is found to be invalid or
+      unenforceable by a court of competent jurisdiction, the remaining
+      provisions will continue in full force and effect.
+    </p>
+
+    <h2>16. Entire Agreement</h2>
+    <p>
+      These Terms, together with our <a href="/privacy-policy/"
+        >Privacy Policy</a
+      >, <a href="/cookie-policy/">Cookie Policy</a>, and <a
+        href="/disclaimer/">Disclaimer</a
+      >, constitute the entire agreement between you and Claude Model
+      Insights regarding your use of the Site.
+    </p>
+
+    <h2>17. Contact</h2>
+    <p>For questions about these Terms:</p>
+    <p>
+      <strong>Email:</strong>
+      <a href="mailto:contact@claudeopusmodels.com"
+        >contact@claudeopusmodels.com</a
+      >
+    </p>
+  </article>
 </BaseLayout>
