@@ -1181,11 +1181,14 @@ img {
   font-size: 17px;
   color: var(--text-secondary);
   line-height: 1.6;
+  max-width: 520px;
+  margin: 0 auto;
 }
 
 .continue-reading-btn {
-  margin-top: 16px;
-  padding: 10px 28px;
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 32px;
   border-radius: 10px;
   border: none;
   background: var(--accent);
@@ -1194,6 +1197,7 @@ img {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.15s;
+  text-decoration: none;
 }
 
 .continue-reading-btn:hover {
