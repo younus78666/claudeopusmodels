@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import TrustHero from "../components/TrustHero.astro";
 import { siteUrl } from "../content";
 
 const schema = {
@@ -28,25 +29,29 @@ const schema = {
   path="/editorial-policy/"
   schema={schema}
 >
-  <div class="feed-header">
-    <h1>Editorial Policy</h1>
-  </div>
+  <TrustHero
+    eyebrow="Editorial Policy"
+    title="How We Research & Write"
+    subtitle="Transparency about how every article on this site gets researched, written, reviewed, and maintained."
+    accent="#7B7FA3"
+  />
 
-  <article class="article-body" style="max-width: 760px; margin: 0 auto;">
+  <article class="trust-page">
     <p>
-      This page explains how content on Claude Model Insights gets
-      researched, written, reviewed, and maintained. Transparency about our
-      process is part of how we earn trust.
+      This page explains how content on Claude Model Insights gets researched,
+      written, reviewed, and maintained. Transparency about our process is
+      part of how we earn trust.
     </p>
 
     <h2>How We Research</h2>
     <p>Every article starts with real data, not assumptions. Our research process follows this order:</p>
+
     <p>
       <strong>Keyword and demand research.</strong> We use Ubersuggest and
-      Keywords Everywhere to pull actual search volumes, CPC data, and
-      keyword difficulty scores. When we say a keyword has 110,000 monthly
-      searches, that number came from a live API pull on a specific date,
-      and we state that date.
+      Keywords Everywhere to pull actual search volumes, CPC data, and keyword
+      difficulty scores. When we say a keyword has 110,000 monthly searches,
+      that number came from a live API pull on a specific date, and we state
+      that date.
     </p>
     <p>
       <strong>Competitor analysis.</strong> Before writing on any topic, we
@@ -62,8 +67,8 @@ const schema = {
       summaries when the primary source is available.
     </p>
     <p>
-      <strong>Hands-on testing.</strong> When we review a tool or feature,
-      we use it ourselves first. Claude Code tutorials are written while
+      <strong>Hands-on testing.</strong> When we review a tool or feature, we
+      use it ourselves first. Claude Code tutorials are written while
       building actual projects. Model comparisons are based on tasks we've
       run through both models. We don't review things we haven't touched.
     </p>
@@ -107,32 +112,32 @@ const schema = {
     </p>
     <p>
       <strong>Outdated content.</strong> AI tools change fast. We review
-      published articles quarterly and update them when pricing, features,
-      or capabilities change. Articles that can't be meaningfully updated
-      are marked with a notice.
+      published articles quarterly and update them when pricing, features, or
+      capabilities change. Articles that can't be meaningfully updated are
+      marked with a notice.
     </p>
 
     <h2>What We Don't Do</h2>
     <p>
       We don't accept payment for reviews or coverage. If we ever introduce
       affiliate links or sponsored content in the future, those will be
-      clearly labeled. As of this writing, we have no paid relationships
-      with any company mentioned on this site, including Anthropic.
+      clearly labeled. As of this writing, we have no paid relationships with
+      any company mentioned on this site, including Anthropic.
     </p>
     <p>
-      We don't publish content generated entirely by AI without human
-      review and editing. While we use Claude as a writing tool (that's
-      literally what this site is about), every article is researched,
-      structured, reviewed, and verified by a human editor before
-      publication.
+      We don't publish content generated entirely by AI without human review
+      and editing. While we use Claude as a writing tool (that's literally
+      what this site is about), every article is researched, structured,
+      reviewed, and verified by a human editor before publication.
     </p>
 
     <h2>Questions About Our Process</h2>
     <p>
       If you have concerns about the accuracy of any article, or questions
-      about how we researched a specific claim, please reach out through
-      the <a href="/contact/">contact page</a>. We take corrections
-      seriously and respond to every substantive inquiry.
+      about how we researched a specific claim, please reach out through the <a
+        href="/contact/">contact page</a
+      >. We take corrections seriously and respond to every substantive
+      inquiry.
     </p>
   </article>
 </BaseLayout>

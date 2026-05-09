@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import TrustHero from "../components/TrustHero.astro";
 ---
 
 <BaseLayout
@@ -8,44 +9,47 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   path="/disclaimer/"
   noindex={true}
 >
-  <div class="feed-header">
-    <h1>Disclaimer</h1>
-    <p><strong>Last Updated: May 9, 2026</strong></p>
-  </div>
+  <TrustHero
+    eyebrow="Legal"
+    title="Disclaimer"
+    subtitle="Legal notice covering content accuracy, affiliations, AI tool usage, and limitation of liability."
+    accent="#A3787B"
+    meta="Last Updated: May 9, 2026"
+  />
 
-  <article class="article-body" style="max-width: 760px; margin: 0 auto;">
+  <article class="trust-page">
     <h2>General Information</h2>
     <p>
       Claude Model Insights (claudeopusmodels.com) provides educational and
       informational content about Claude AI models, vibe coding, and
       AI-assisted development. The content on this site is intended for
-      general informational purposes and shouldn't be treated as
-      professional advice.
+      general informational purposes and shouldn't be treated as professional
+      advice.
     </p>
 
     <h2>No Affiliation with Anthropic</h2>
     <p>
       Claude Model Insights is an independent publication. We aren't
-      affiliated with, endorsed by, or officially connected to Anthropic,
-      PBC (the company behind Claude). All product names, trademarks, and
-      registered trademarks mentioned on this site are the property of
-      their respective owners. "Claude," "Claude Code," "Claude Opus,"
-      "Claude Sonnet," and "Claude Haiku" are trademarks of Anthropic.
+      affiliated with, endorsed by, or officially connected to Anthropic, PBC
+      (the company behind Claude). All product names, trademarks, and
+      registered trademarks mentioned on this site are the property of their
+      respective owners. "Claude," "Claude Code," "Claude Opus," "Claude
+      Sonnet," and "Claude Haiku" are trademarks of Anthropic.
     </p>
 
     <h2>Accuracy of Information</h2>
     <p>
-      We work hard to ensure accuracy in every article we publish (see our
-      <a href="/editorial-policy/">editorial policy</a>). However, AI tools
-      and pricing change frequently. Information that was accurate on the
-      date of publication may become outdated. We review and update
-      articles periodically, but we can't guarantee that every detail on
-      this site reflects the absolute latest state of every product
+      We work hard to ensure accuracy in every article we publish (see our <a
+        href="/editorial-policy/">editorial policy</a
+      >). However, AI tools and pricing change frequently. Information that
+      was accurate on the date of publication may become outdated. We review
+      and update articles periodically, but we can't guarantee that every
+      detail on this site reflects the absolute latest state of every product
       mentioned.
     </p>
     <p>
-      If you find an error, please <a href="/contact/">contact us</a> so we
-      can correct it.
+      If you find an error, please <a href="/contact/">contact us</a> so we can
+      correct it.
     </p>
 
     <h2>AI-Assisted Content</h2>
@@ -67,21 +71,20 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
     <h2>Limitation of Liability</h2>
     <p>
-      The information on this site is provided "as is" without warranties
-      of any kind. We aren't liable for any losses or damages arising from
-      the use of information on this site, including but not limited to
-      code generated using methods described in our tutorials, financial
-      decisions based on pricing information, or technical issues resulting
-      from following our guides.
+      The information on this site is provided "as is" without warranties of
+      any kind. We aren't liable for any losses or damages arising from the
+      use of information on this site, including but not limited to code
+      generated using methods described in our tutorials, financial decisions
+      based on pricing information, or technical issues resulting from
+      following our guides.
     </p>
 
     <h2>Code and Technical Content</h2>
     <p>
-      Code examples and technical instructions on this site are provided
-      for educational purposes. Always review AI-generated code before
-      deploying it to production environments, especially for applications
-      handling sensitive data, financial transactions, or personal
-      information.
+      Code examples and technical instructions on this site are provided for
+      educational purposes. Always review AI-generated code before deploying
+      it to production environments, especially for applications handling
+      sensitive data, financial transactions, or personal information.
     </p>
 
     <h2>Contact</h2>

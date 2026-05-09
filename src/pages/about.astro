@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import TrustHero from "../components/TrustHero.astro";
 import { siteUrl } from "../content";
 
 const schema = {
@@ -31,11 +32,14 @@ const schema = {
   path="/about/"
   schema={schema}
 >
-  <div class="feed-header">
-    <h1>About Claude Model Insights</h1>
-  </div>
+  <TrustHero
+    eyebrow="About"
+    title="About Claude Model Insights"
+    subtitle="A publication for people who build things with Claude. Practical analysis from someone who actually uses these models every day."
+    accent="#D97757"
+  />
 
-  <article class="article-body" style="max-width: 760px; margin: 0 auto;">
+  <article class="trust-page">
     <p>
       Claude Model Insights is a publication for people who build things with
       Claude. Not hype pieces. Not press release rewrites. Practical analysis
@@ -78,6 +82,13 @@ const schema = {
     </p>
 
     <h2>Who Runs This</h2>
+    <div class="trust-author-card">
+      <div class="trust-author-avatar">M</div>
+      <div>
+        <div class="name">Muhammad Younus</div>
+        <div class="role">Vibe Coder &amp; AI Development Specialist</div>
+      </div>
+    </div>
     <p>
       Claude Model Insights is written and maintained by <a
         href="/author/muhammad-younus/">Muhammad Younus</a

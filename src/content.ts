@@ -299,6 +299,33 @@ export const navLinks = [
   { id: "about", label: "About" },
 ];
 
+export const headerLinks = [
+  { href: "/", label: "Articles", match: "/" },
+  { href: "/about/", label: "About", match: "/about" },
+  { href: "/contact/", label: "Contact", match: "/contact" },
+];
+
+export const mobileLinks = [
+  { href: "/", label: "Articles", match: "/" },
+  { href: "/about/", label: "About", match: "/about" },
+  { href: "/author/muhammad-younus/", label: "Author", match: "/author" },
+  { href: "/editorial-policy/", label: "Editorial Policy", match: "/editorial-policy" },
+  { href: "/contact/", label: "Contact", match: "/contact" },
+  { href: "/disclaimer/", label: "Disclaimer", match: "/disclaimer" },
+];
+
+export const footerSiteLinks = [
+  { href: "/", label: "Articles" },
+  { href: "/about/", label: "About" },
+  { href: "/author/muhammad-younus/", label: "Author" },
+  { href: "/contact/", label: "Contact" },
+];
+
+export const footerLegalLinks = [
+  { href: "/editorial-policy/", label: "Editorial Policy" },
+  { href: "/disclaimer/", label: "Disclaimer" },
+];
+
 export const aboutEeat = [
   {
     label: "Experience",

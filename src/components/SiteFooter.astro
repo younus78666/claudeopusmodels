@@ -1,7 +1,56 @@
 ---
-import { siteName } from "../content";
+import {
+  footerLegalLinks,
+  footerSiteLinks,
+  siteName,
+} from "../content";
+
+const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
-  {siteName} &middot; Expert analysis of Anthropic's AI models
+  <div class="site-footer-inner">
+    <div class="site-footer-grid">
+      <div class="site-footer-brand">
+        <div class="site-footer-logo">C</div>
+        <div class="site-footer-brand-text">
+          <div class="site-footer-name">{siteName}</div>
+          <p>Expert analysis of Anthropic's Claude AI models.</p>
+        </div>
+      </div>
+
+      <div class="site-footer-col">
+        <div class="site-footer-heading">Site</div>
+        <ul>
+          {
+            footerSiteLinks.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="site-footer-col">
+        <div class="site-footer-heading">Legal</div>
+        <ul>
+          {
+            footerLegalLinks.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="site-footer-bottom">
+      <span>&copy; {year} {siteName}. All rights reserved.</span>
+      <span>
+        Independent publication. Not affiliated with Anthropic.
+      </span>
+    </div>
+  </div>
 </footer>

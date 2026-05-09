@@ -1,0 +1,31 @@
+---
+export interface Props {
+  eyebrow: string;
+  title: string;
+  subtitle?: string;
+  accent?: string;
+  meta?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  subtitle,
+  accent = "var(--accent)",
+  meta,
+} = Astro.props;
+---
+
+<header
+  class="trust-hero"
+  style={`--trust-accent: ${accent};`}
+>
+  <div class="trust-hero-circle-1"></div>
+  <div class="trust-hero-circle-2"></div>
+  <div class="trust-hero-content">
+    <span class="trust-hero-eyebrow">{eyebrow}</span>
+    <h1>{title}</h1>
+    {subtitle && <p class="trust-hero-subtitle">{subtitle}</p>}
+    {meta && <p class="trust-hero-meta">{meta}</p>}
+  </div>
+</header>

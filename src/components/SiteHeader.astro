@@ -1,5 +1,5 @@
 ---
-import { navLinks, siteName } from "../content";
+import { headerLinks, mobileLinks, siteName } from "../content";
 
 export interface Props {
   currentPath: string;
@@ -7,9 +7,9 @@ export interface Props {
 
 const { currentPath } = Astro.props;
 
-function isActive(linkId: string): boolean {
-  if (linkId === "home") return currentPath === "/";
-  return currentPath.startsWith(`/${linkId}`);
+function isActive(match: string): boolean {
+  if (match === "/") return currentPath === "/";
+  return currentPath.startsWith(match);
 }
 ---
 
@@ -22,10 +22,10 @@ function isActive(linkId: string): boolean {
 
     <div class="topnav-links">
       {
-        navLinks.map((link) => (
+        headerLinks.map((link) => (
           <a
-            class={`topnav-link ${isActive(link.id) ? "active" : ""}`}
-            href={link.id === "home" ? "/" : `/${link.id}/`}
+            class={`topnav-link ${isActive(link.match) ? "active" : ""}`}
+            href={link.href}
           >
             {link.label}
           </a>
@@ -35,14 +35,16 @@ function isActive(linkId: string): boolean {
   </div>
 
   <button
-    class="topnav-search-btn"
+    class="topnav-mobile-toggle"
     type="button"
-    aria-label="Search"
-    disabled
+    aria-label="Open menu"
+    aria-expanded="false"
+    aria-controls="mobile-drawer"
+    id="mobile-toggle"
   >
     <svg
-      width="20"
-      height="20"
+      width="22"
+      height="22"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -50,8 +52,78 @@ function isActive(linkId: string): boolean {
       stroke-linecap="round"
       stroke-linejoin="round"
     >
-      <circle cx="11" cy="11" r="8"></circle>
-      <path d="M21 21l-4.35-4.35"></path>
+      <path d="M3 6h18M3 12h18M3 18h18"></path>
     </svg>
   </button>
 </nav>
+
+<div class="mobile-drawer" id="mobile-drawer" hidden>
+  <div class="mobile-drawer-panel">
+    <div class="mobile-drawer-head">
+      <span class="mobile-drawer-title">Menu</span>
+      <button
+        class="mobile-drawer-close"
+        type="button"
+        aria-label="Close menu"
+        id="mobile-close"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M18 6L6 18M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <nav class="mobile-drawer-links" aria-label="Mobile primary">
+      {
+        mobileLinks.map((link) => (
+          <a
+            class={`mobile-drawer-link ${isActive(link.match) ? "active" : ""}`}
+            href={link.href}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    const toggle = document.getElementById("mobile-toggle");
+    const drawer = document.getElementById("mobile-drawer");
+    const close = document.getElementById("mobile-close");
+    if (!toggle || !drawer || !close) return;
+
+    function openMenu() {
+      drawer.hidden = false;
+      drawer.classList.add("open");
+      toggle.setAttribute("aria-expanded", "true");
+      document.body.style.overflow = "hidden";
+    }
+    function closeMenu() {
+      drawer.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+      setTimeout(() => {
+        drawer.hidden = true;
+      }, 200);
+    }
+    toggle.addEventListener("click", openMenu);
+    close.addEventListener("click", closeMenu);
+    drawer.addEventListener("click", function (e) {
+      if (e.target === drawer) closeMenu();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !drawer.hidden) closeMenu();
+    });
+  })();
+</script>

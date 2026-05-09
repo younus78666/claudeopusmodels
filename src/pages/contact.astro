@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import TrustHero from "../components/TrustHero.astro";
 import { siteUrl } from "../content";
 
 const schema = {
@@ -25,35 +26,39 @@ const schema = {
   path="/contact/"
   schema={schema}
 >
-  <div class="feed-header">
-    <h1>Contact Us</h1>
-  </div>
+  <TrustHero
+    eyebrow="Contact"
+    title="Get in Touch"
+    subtitle="Got a question, correction, or collaboration idea? We'd like to hear from you. We respond within 48 business hours."
+    accent="#8B7355"
+  />
 
-  <article class="article-body" style="max-width: 760px; margin: 0 auto;">
-    <p>
-      Got a question about one of our articles? Found an error that needs
-      correcting? Want to suggest a topic? We'd like to hear from you.
-    </p>
-
-    <h2>Ways to Reach Us</h2>
-    <p>
-      <strong>Email:</strong>
-      <a href="mailto:contact@claudeopusmodels.com"
-        >contact@claudeopusmodels.com</a
-      >
-    </p>
-    <p>
-      <strong>Response time:</strong> We respond to every message within 48
-      business hours. Corrections and factual accuracy reports get priority.
-    </p>
+  <article class="trust-page">
+    <div class="trust-contact-grid">
+      <div class="trust-contact-item">
+        <div class="key">Email</div>
+        <div class="val">
+          <a href="mailto:contact@claudeopusmodels.com"
+            >contact@claudeopusmodels.com</a
+          >
+        </div>
+      </div>
+      <div class="trust-contact-item">
+        <div class="key">Response Time</div>
+        <div class="val">Within 48 business hours</div>
+      </div>
+      <div class="trust-contact-item">
+        <div class="key">Priority</div>
+        <div class="val">Corrections &amp; accuracy reports</div>
+      </div>
+    </div>
 
     <h2>What We Can Help With</h2>
     <p>
-      <strong>Content corrections.</strong> If you've spotted an error in
-      any article (wrong pricing, outdated feature, broken link), email us
-      with the article URL and what needs fixing. We take accuracy
-      seriously and update articles within 24 hours for verified
-      corrections.
+      <strong>Content corrections.</strong> If you've spotted an error in any
+      article (wrong pricing, outdated feature, broken link), email us with
+      the article URL and what needs fixing. We take accuracy seriously and
+      update articles within 24 hours for verified corrections.
     </p>
     <p>
       <strong>Topic suggestions.</strong> Have a Claude Code question
@@ -61,31 +66,29 @@ const schema = {
       we'll consider it for a future article.
     </p>
     <p>
-      <strong>Collaboration.</strong> We're open to guest contributions
-      from practitioners with genuine hands-on experience. We don't accept
+      <strong>Collaboration.</strong> We're open to guest contributions from
+      practitioners with genuine hands-on experience. We don't accept
       AI-generated guest posts or paid placements.
     </p>
 
     <h2>What We Can't Help With</h2>
     <p>
       <strong>Claude Code tech support.</strong> We're an independent
-      publication, not Anthropic's support team. For account issues,
-      billing questions, or bug reports, contact Anthropic directly at <a
+      publication, not Anthropic's support team. For account issues, billing
+      questions, or bug reports, contact Anthropic directly at <a
         href="https://support.anthropic.com">support.anthropic.com</a
       >.
     </p>
     <p>
       <strong>Personal project help.</strong> We can't debug your specific
-      Claude Code project via email. But if your question is common
-      enough, it might become an article that helps everyone.
+      Claude Code project via email. But if your question is common enough,
+      it might become an article that helps everyone.
     </p>
 
     <h2>Connect on Social</h2>
     <ul>
       <li>
-        Website: <a href="https://muhammadyounus.com"
-          >muhammadyounus.com</a
-        >
+        Website: <a href="https://muhammadyounus.com">muhammadyounus.com</a>
       </li>
       <li>
         LinkedIn: <a href="https://linkedin.com/in/muhammadyounus"
