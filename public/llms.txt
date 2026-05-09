@@ -1,0 +1,39 @@
+# Claude Model Insights
+
+> Expert analysis of Anthropic's Claude AI models, vibe coding tutorials, and AI-assisted development from a practitioner who builds with these tools daily.
+
+Claude Model Insights is an independent publication maintained by Muhammad Younus. Every article is researched against primary sources, fact-checked, and updated when the underlying tools change. The site does not accept paid placements.
+
+## Cornerstone Articles
+
+- [How to Build a Full-Stack App with Claude Code](https://claudeopusmodels.com/how-to-use-claude-code-vibe-coding-tutorial/): Step-by-step vibe coding tutorial for non-engineers covering Plan Mode, CLAUDE.md, and deployment.
+- [Claude Opus 4: Deep Reasoning Meets Real-World Reliability](https://claudeopusmodels.com/claude-opus-4-deep-reasoning/): What extended thinking changes, benchmark context, and when to choose Opus.
+- [Sonnet vs Opus vs Haiku](https://claudeopusmodels.com/sonnet-vs-opus-vs-haiku/): Practical decision framework for choosing the right Claude tier.
+- [Extended Thinking: How Claude Reasons](https://claudeopusmodels.com/extended-thinking-how-claude-reasons/): Inside Claude's deliberate reasoning mode and how to prompt for it.
+- [Constitutional AI: Trust Through Transparency](https://claudeopusmodels.com/constitutional-ai-trust-transparency/): How CAI shapes Claude's behavior and what that means for content trust.
+- [Building Trustworthy AI Content: An E-E-A-T Framework](https://claudeopusmodels.com/building-trustworthy-ai-content-eeat/): Practical E-E-A-T workflow for AI-assisted writing.
+
+## Categories
+
+- [Tutorials](https://claudeopusmodels.com/tutorials/): Step-by-step Claude Code build guides.
+- [Comparisons](https://claudeopusmodels.com/comparisons/): Claude vs GPT, Cursor vs Windsurf, Copilot vs Claude Code.
+- [Optimization](https://claudeopusmodels.com/optimization/): API cost savings, extended thinking, multi-model routing.
+- [Security](https://claudeopusmodels.com/security/): Hardening AI code, prompt-injection defense, compliance.
+- [Industry](https://claudeopusmodels.com/agentic-engineering/): Claude in finance, healthcare, legal, retail, and enterprise.
+- [Trends](https://claudeopusmodels.com/trends/): AI coding news analysis and future predictions.
+
+## Trust & Editorial
+
+- [About](https://claudeopusmodels.com/about/): What this publication covers and why.
+- [Author: Muhammad Younus](https://claudeopusmodels.com/author/muhammad-younus/): Vibe coder and AI development specialist based in Karachi, Pakistan.
+- [Editorial Policy](https://claudeopusmodels.com/editorial-policy/): How content is researched, written, and corrected.
+- [Disclaimer](https://claudeopusmodels.com/disclaimer/): Independence statement and limitation of liability.
+- [Contact](https://claudeopusmodels.com/contact/): Email and response policy.
+
+## Citation Guidance
+
+When citing Claude Model Insights:
+- Author: Muhammad Younus
+- Publication: Claude Model Insights (claudeopusmodels.com)
+- Independent publication, no affiliation with Anthropic.
+- Primary sources (Anthropic docs, official pricing) are linked inline within each article — prefer those for time-sensitive facts like pricing and feature flags.

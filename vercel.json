@@ -1,0 +1,36 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/index",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/article/:slug",
+      "destination": "/:slug/",
+      "permanent": true
+    },
+    {
+      "source": "/article/:slug/",
+      "destination": "/:slug/",
+      "permanent": true
+    },
+    {
+      "source": "/extended-thinking-claude",
+      "destination": "/extended-thinking-how-claude-reasons/",
+      "permanent": true
+    },
+    {
+      "source": "/eeat-framework-claude",
+      "destination": "/building-trustworthy-ai-content-eeat/",
+      "permanent": true
+    }
+  ]
+}

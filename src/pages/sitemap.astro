@@ -1,0 +1,97 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TrustHero from "../components/TrustHero.astro";
+import {
+  posts,
+  silos,
+  footerSiteLinks,
+  footerLegalLinks,
+  siteUrl,
+} from "../content";
+
+const articles = [...posts].sort((a, b) =>
+  (b.datePublishedISO ?? "").localeCompare(a.datePublishedISO ?? "")
+);
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Sitemap | Claude Model Insights",
+  description:
+    "Browse every page on Claude Model Insights organized by section.",
+  url: `${siteUrl}/sitemap/`,
+};
+---
+
+<BaseLayout
+  title="Sitemap | Claude Model Insights"
+  description="Browse every page on Claude Model Insights — articles, categories, and trust pages — organized by section."
+  path="/sitemap/"
+  schema={schema}
+>
+  <TrustHero
+    eyebrow="Sitemap"
+    title="Site Map"
+    subtitle="Every public page on Claude Model Insights, grouped by section. The XML sitemap lives at /sitemap.xml."
+    accent="#7B7FA3"
+  />
+
+  <div class="html-sitemap">
+    <section class="html-sitemap-section">
+      <h2>Main</h2>
+      <ul class="html-sitemap-list">
+        <li><a href="/">Home</a><span class="meta">Latest articles</span></li>
+        {
+          footerSiteLinks
+            .filter((l) => l.href !== "/")
+            .map((l) => (
+              <li>
+                <a href={l.href}>{l.label}</a>
+              </li>
+            ))
+        }
+      </ul>
+    </section>
+
+    <section class="html-sitemap-section">
+      <h2>Categories</h2>
+      <ul class="html-sitemap-list">
+        {
+          silos.map((s) => (
+            <li>
+              <a href={s.href}>{s.label}</a>
+              <span class="meta">{s.description.split(".")[0]}.</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="html-sitemap-section">
+      <h2>Articles</h2>
+      <ul class="html-sitemap-list">
+        {
+          articles.map((post) => (
+            <li>
+              <a href={`/${post.slug}/`}>{post.title}</a>
+              <span class="meta">{post.date} · {post.readTime}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="html-sitemap-section">
+      <h2>Legal &amp; Editorial</h2>
+      <ul class="html-sitemap-list">
+        {
+          footerLegalLinks.map((l) => (
+            <li>
+              <a href={l.href}>{l.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</BaseLayout>

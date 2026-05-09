@@ -1,13 +1,13 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import Icon from "../../components/Icon.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
 import {
   posts,
   siteName,
   siteUrl,
   silos,
   type BlogPost,
-} from "../../content";
+} from "../content";
 
 export async function getStaticPaths() {
   return posts.map((post) => ({
@@ -21,16 +21,17 @@ interface Props {
 }
 
 const { post } = Astro.props as Props;
-const path = `/article/${post.slug}/`;
+const path = `/${post.slug}/`;
 
 const primarySilo = silos.find((s) => post.tags.includes(s.slug));
 
-const schema = {
+const baseSchema = {
   "@context": "https://schema.org",
   "@type": "Article",
   headline: post.title,
   description: post.excerpt,
-  datePublished: post.date,
+  datePublished: post.datePublishedISO ?? post.date,
+  dateModified: post.datePublishedISO ?? post.date,
   author: {
     "@type": "Person",
     "@id": `${siteUrl}/#author`,
@@ -47,28 +48,71 @@ const schema = {
     "@type": "WebPage",
     "@id": `${siteUrl}${path}`,
   },
-  ...(primarySilo && {
-    articleSection: primarySilo.label,
-  }),
+  ...(primarySilo && { articleSection: primarySilo.label }),
 };
 
-const paragraphs = post.body.split("\n\n").map((para, i) => {
-  if (para.startsWith("## ")) {
-    return {
-      type: "h2" as const,
-      id: `section-${i}`,
-      content: para.replace("## ", ""),
-    };
-  }
-  return {
-    type: "p" as const,
-    id: `p-${i}`,
-    content: para.replace(
-      /\*\*(.*?)\*\*/g,
-      `<strong style="color:${post.color}">$1</strong>`
-    ),
-  };
-});
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Articles",
+      item: `${siteUrl}/`,
+    },
+    ...(primarySilo
+      ? [
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: primarySilo.label,
+            item: `${siteUrl}${primarySilo.href}`,
+          },
+        ]
+      : []),
+    {
+      "@type": "ListItem",
+      position: primarySilo ? 3 : 2,
+      name: post.title,
+      item: `${siteUrl}${path}`,
+    },
+  ],
+};
+
+const schemaArray: object[] = [baseSchema, breadcrumbSchema];
+if (post.extraSchema) {
+  if (Array.isArray(post.extraSchema)) schemaArray.push(...post.extraSchema);
+  else schemaArray.push(post.extraSchema);
+}
+
+const tocItems = (post.toc as Array<{ id: string; label: string } | string>).map(
+  (entry) =>
+    typeof entry === "string"
+      ? { id: entry.toLowerCase().replace(/[^a-z0-9]+/g, "-"), label: entry }
+      : entry
+);
+
+// Fallback simple-body renderer (used when bodyHtml not provided)
+const paragraphs = post.bodyHtml
+  ? []
+  : post.body.split("\n\n").map((para, i) => {
+      if (para.startsWith("## ")) {
+        return {
+          type: "h2" as const,
+          id: `section-${i}`,
+          content: para.replace("## ", ""),
+        };
+      }
+      return {
+        type: "p" as const,
+        id: `p-${i}`,
+        content: para.replace(
+          /\*\*(.*?)\*\*/g,
+          `<strong style="color:${post.color}">$1</strong>`
+        ),
+      };
+    });
 ---
 
 <BaseLayout
@@ -76,7 +120,7 @@ const paragraphs = post.body.split("\n\n").map((para, i) => {
   description={post.excerpt}
   path={path}
   type="article"
-  schema={schema}
+  schema={schemaArray}
 >
   <div>
     <div class="post-top-bar">
@@ -132,7 +176,7 @@ const paragraphs = post.body.split("\n\n").map((para, i) => {
           </a>
           <div class="author-divider"></div>
           <div class="article-meta">
-            <span>{post.date}</span>
+            <time datetime={post.datePublishedISO ?? ""}>{post.date}</time>
             <span class="meta-icon">
               <Icon name="clock" size={13} /> {post.readTime}
             </span>
@@ -151,28 +195,33 @@ const paragraphs = post.body.split("\n\n").map((para, i) => {
     <div class="article-layout">
       <article class="article-body">
         {
-          paragraphs.map((para) =>
-            para.type === "h2" ? (
-              <h2 id={para.id}>{para.content}</h2>
-            ) : (
-              <p set:html={para.content} />
+          post.bodyHtml ? (
+            <div set:html={post.bodyHtml} />
+          ) : (
+            paragraphs.map((para) =>
+              para.type === "h2" ? (
+                <h2 id={para.id}>{para.content}</h2>
+              ) : (
+                <p set:html={para.content} />
+              )
             )
           )
         }
       </article>
 
       {
-        post.toc && (
+        tocItems.length > 0 && (
           <aside class="article-sidebar">
             <div class="toc-panel">
               <div class="toc-label">In this article</div>
-              {post.toc.map((item, i) => (
-                <div
+              {tocItems.map((item, i) => (
+                <a
+                  href={`#${item.id}`}
                   class={`toc-item ${i === 0 ? "active" : ""}`}
                   style={i === 0 ? `border-left-color: ${post.color};` : ""}
                 >
-                  {item}
-                </div>
+                  {item.label}
+                </a>
               ))}
             </div>
 

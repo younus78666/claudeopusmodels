@@ -7,15 +7,23 @@ export type BlogPost = {
   author: string;
   authorRole: string;
   date: string;
+  datePublishedISO?: string;
   readTime: string;
   tags: string[];
   color: string;
   icon: string;
   body: string;
-  toc: string[];
+  bodyHtml?: string;
+  toc: { id: string; label: string }[] | string[];
   keyTakeaway: string;
   expertCredentials: string;
+  extraSchema?: Record<string, unknown> | Record<string, unknown>[];
 };
+
+import {
+  vibeCodingTutorialHtml,
+  vibeCodingFaqSchema,
+} from "./articles/vibe-coding-tutorial";
 
 export const siteName = "Claude Model Insights";
 export const siteUrl = "https://claudeopusmodels.com";
@@ -96,6 +104,42 @@ export function postsBySilo(silo: string) {
 }
 
 export const posts: BlogPost[] = [
+  {
+    id: 6,
+    slug: "how-to-use-claude-code-vibe-coding-tutorial",
+    title:
+      "How to Build a Full-Stack App with Claude Code: A Vibe Coding Tutorial for Non-Engineers",
+    excerpt:
+      "Build a working full-stack app with Claude Code. No coding experience needed. Step-by-step vibe coding tutorial covering setup, Plan Mode, and deployment.",
+    category: "Tutorial",
+    author: "Muhammad Younus",
+    authorRole: "Vibe Coder & AI Development Specialist",
+    date: "May 9, 2026",
+    datePublishedISO: "2026-05-09",
+    readTime: "12 min read",
+    tags: ["tutorials", "claude-code", "vibe-coding"],
+    color: "#D97757",
+    icon: "✦",
+    body: "",
+    bodyHtml: vibeCodingTutorialHtml,
+    toc: [
+      { id: "what-is-vibe-coding", label: "What Is Vibe Coding" },
+      { id: "who-should-use", label: "Who This Is For" },
+      { id: "prerequisites", label: "What You Need" },
+      { id: "step-by-step", label: "Step-by-Step Build" },
+      { id: "mistakes", label: "Mistakes to Avoid" },
+      { id: "comparison", label: "Claude Code vs Cursor vs Bolt.new" },
+      { id: "project-ideas", label: "10 Weekend Project Ideas" },
+      { id: "worth-it", label: "Is It Worth $20/Month?" },
+      { id: "market-size", label: "The 2026 Market" },
+      { id: "faq", label: "FAQ" },
+    ],
+    keyTakeaway:
+      "Vibe coding with Claude Code lets non-engineers build real full-stack apps in a weekend. The non-negotiables: Plan Mode (Shift+Tab x2) before every project, a CLAUDE.md file for session persistence, and small focused change requests during iteration.",
+    expertCredentials:
+      "Built and deployed dozens of Claude Code projects across the past year. Keyword data verified live in Ubersuggest May 2026. Claude Pro pricing verified against claude.com/pricing.",
+    extraSchema: vibeCodingFaqSchema,
+  },
   {
     id: 1,
     slug: "claude-opus-4-deep-reasoning",
@@ -385,6 +429,7 @@ export const footerSiteLinks = [
   { href: "/about/", label: "About" },
   { href: "/author/muhammad-younus/", label: "Author" },
   { href: "/contact/", label: "Contact" },
+  { href: "/sitemap/", label: "Sitemap" },
 ];
 
 export const footerLegalLinks = [

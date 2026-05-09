@@ -1,5 +1,57 @@
+# claudeopusmodels.com — robots.txt
+# Indexable site. AI crawlers are welcome to read content for citation,
+# but the original copy is hosted at the canonical URLs below.
+
 User-agent: *
 Allow: /
+Disallow: /article/
 
+# Major search crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# AI / answer-engine crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# Sitemaps
 Sitemap: https://claudeopusmodels.com/sitemap.xml
 
+# LLM index
+# https://claudeopusmodels.com/llms.txt
