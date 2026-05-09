@@ -1,0 +1,149 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { siteUrl } from "../../content";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  name: "Muhammad Younus - Author Profile",
+  url: `${siteUrl}/author/muhammad-younus/`,
+  mainEntity: {
+    "@type": "Person",
+    "@id": `${siteUrl}/#author`,
+    name: "Muhammad Younus",
+    jobTitle: "Vibe Coder & AI Development Specialist",
+    description:
+      "Vibe coder and AI development specialist who writes about building apps with Claude Code. One year of hands-on experience.",
+    url: `${siteUrl}/author/muhammad-younus/`,
+    sameAs: [
+      "https://muhammadyounus.com",
+      "https://linkedin.com/in/muhammadyounus",
+      "https://github.com/muhammadyounus",
+    ],
+    worksFor: {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+      name: "Claude Model Insights",
+    },
+    knowsAbout: [
+      "Claude Code",
+      "Vibe Coding",
+      "Claude AI Models",
+      "AI-Assisted Development",
+      "WordPress Development",
+      "Technical SEO",
+      "Semantic SEO",
+      "Web Performance Optimization",
+    ],
+    alumniOf: {
+      "@type": "CollegeOrUniversity",
+      name: "University of Karachi",
+    },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Karachi",
+      addressCountry: "PK",
+    },
+  },
+};
+---
+
+<BaseLayout
+  title="Muhammad Younus | Vibe Coder & AI Development Writer"
+  description="Muhammad Younus is a vibe coder and AI development specialist who writes about building apps with Claude Code. One year of hands-on experience. Based in Karachi."
+  path="/author/muhammad-younus/"
+  schema={schema}
+>
+  <div class="feed-header">
+    <h1>Muhammad Younus</h1>
+    <p>Vibe Coder &amp; AI Development Specialist</p>
+  </div>
+
+  <article class="article-body" style="max-width: 760px; margin: 0 auto;">
+    <p>
+      I'm Muhammad Younus. I build things with Claude Code and write about
+      what I learn along the way.
+    </p>
+    <p>
+      I started vibe coding about a year ago. Before that, I worked in
+      WordPress development, SEO, and web performance optimization for
+      several years. When Claude Code launched and vibe coding took off, I
+      realized the same principles that make a great website (clear
+      structure, fast performance, user-first design) apply directly to
+      AI-assisted development. I just needed to learn a new set of tools.
+    </p>
+    <p>
+      Over the past year I've built dozens of projects using Claude's model
+      family. Habit trackers, client dashboards, invoice generators, SEO
+      tools, full business websites. Some worked perfectly on the first try.
+      Others taught me expensive lessons about context window limits and
+      prompt specificity. I write about both kinds.
+    </p>
+
+    <h2>What I Cover</h2>
+    <p>
+      <strong>Claude Code tutorials</strong> for people who don't come from
+      engineering backgrounds. I focus on Plan Mode workflows, CLAUDE.md best
+      practices, and the specific prompts that produce reliable results.
+    </p>
+    <p>
+      <strong>Model comparisons</strong> based on actual usage, not benchmark
+      charts. When I compare Claude Opus to GPT-5.5 or Cursor to Claude Code,
+      I've spent real time with both tools on real projects.
+    </p>
+    <p>
+      <strong>Optimization guides</strong> for developers who want to save
+      money on API costs, manage token budgets, and get more out of every
+      Claude session.
+    </p>
+
+    <h2>My Background</h2>
+    <p>
+      Before vibe coding, I spent several years in web development and SEO.
+      I've worked with WordPress, Next.js, React, and Python across dozens of
+      client projects. My SEO work covers technical audits, topical authority
+      mapping, and content strategy using Koray Tugberk's semantic SEO
+      framework.
+    </p>
+    <p>
+      That background shapes how I approach AI content. Every article on this
+      site is optimized for both traditional search engines and AI answer
+      engines, because I believe the best content should work everywhere it
+      appears.
+    </p>
+
+    <h2>Find Me Online</h2>
+    <p>
+      You can reach me through the <a href="/contact/">contact page</a> or
+      connect on:
+    </p>
+    <ul>
+      <li>
+        Website: <a href="https://muhammadyounus.com"
+          >muhammadyounus.com</a
+        >
+      </li>
+      <li>
+        LinkedIn: <a href="https://linkedin.com/in/muhammadyounus"
+          >linkedin.com/in/muhammadyounus</a
+        >
+      </li>
+      <li>
+        GitHub: <a href="https://github.com/muhammadyounus"
+          >github.com/muhammadyounus</a
+        >
+      </li>
+    </ul>
+
+    <h2>Writing Policy</h2>
+    <p>
+      Every article I publish follows the <a href="/editorial-policy/"
+        >editorial policy</a
+      > of this site. I verify facts against primary sources, test tools
+      hands-on before reviewing them, and update articles when information
+      changes. If you spot an error, please <a href="/contact/"
+        >let me know</a
+      >.
+    </p>
+  </article>
+</BaseLayout>

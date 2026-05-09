@@ -1,0 +1,57 @@
+---
+import { navLinks, siteName } from "../content";
+
+export interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+function isActive(linkId: string): boolean {
+  if (linkId === "home") return currentPath === "/";
+  return currentPath.startsWith(`/${linkId}`);
+}
+---
+
+<nav class="topnav">
+  <div class="topnav-left">
+    <a class="topnav-brand" href="/" aria-label={`${siteName} home`}>
+      <div class="topnav-logo">C</div>
+      <span class="topnav-title">{siteName}</span>
+    </a>
+
+    <div class="topnav-links">
+      {
+        navLinks.map((link) => (
+          <a
+            class={`topnav-link ${isActive(link.id) ? "active" : ""}`}
+            href={link.id === "home" ? "/" : `/${link.id}/`}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+
+  <button
+    class="topnav-search-btn"
+    type="button"
+    aria-label="Search"
+    disabled
+  >
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="M21 21l-4.35-4.35"></path>
+    </svg>
+  </button>
+</nav>

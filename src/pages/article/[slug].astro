@@ -1,0 +1,176 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Icon from "../../components/Icon.astro";
+import { posts, siteName, siteUrl, type BlogPost } from "../../content";
+
+export async function getStaticPaths() {
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: BlogPost;
+}
+
+const { post } = Astro.props as Props;
+const path = `/article/${post.slug}/`;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: post.title,
+  description: post.excerpt,
+  datePublished: post.date,
+  author: {
+    "@type": "Organization",
+    name: siteName,
+    url: siteUrl,
+  },
+  publisher: {
+    "@type": "Organization",
+    name: siteName,
+    url: siteUrl,
+  },
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": `${siteUrl}${path}`,
+  },
+};
+
+const paragraphs = post.body.split("\n\n").map((para, i) => {
+  if (para.startsWith("## ")) {
+    return {
+      type: "h2" as const,
+      id: `section-${i}`,
+      content: para.replace("## ", ""),
+    };
+  }
+  return {
+    type: "p" as const,
+    id: `p-${i}`,
+    content: para.replace(
+      /\*\*(.*?)\*\*/g,
+      `<strong style="color:${post.color}">$1</strong>`
+    ),
+  };
+});
+---
+
+<BaseLayout
+  title={`${post.title} | ${siteName}`}
+  description={post.excerpt}
+  path={path}
+  type="article"
+  schema={schema}
+>
+  <div>
+    <div class="post-top-bar">
+      <a class="back-btn" href="/">
+        <Icon name="arrow" size={16} /> All articles
+      </a>
+    </div>
+
+    <div
+      class="article-header"
+      style={`background: linear-gradient(135deg, ${post.color}10 0%, ${post.color}04 100%); border: 1px solid ${post.color}20;`}
+    >
+      <div class="circle-1" style={`background: ${post.color}08;`}></div>
+      <div class="circle-2" style={`background: ${post.color}06;`}></div>
+
+      <div class="article-header-content">
+        <div
+          class="category-badge"
+          style={`background: ${post.color}18; color: ${post.color};`}
+        >
+          {post.category}
+        </div>
+
+        <h1>{post.title}</h1>
+        <p class="excerpt">{post.excerpt}</p>
+
+        <div class="article-author-row">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div class="author-avatar" style={`background: ${post.color};`}>
+              C
+            </div>
+            <div class="author-info">
+              <div class="author-name">{post.author}</div>
+              <div class="author-role">{post.authorRole}</div>
+            </div>
+          </div>
+          <div class="author-divider"></div>
+          <div class="article-meta">
+            <span>{post.date}</span>
+            <span class="meta-icon">
+              <Icon name="clock" size={13} /> {post.readTime}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="key-takeaway" style={`border-left-color: ${post.color};`}>
+      <div class="key-takeaway-label" style={`color: ${post.color};`}>
+        Key Takeaway
+      </div>
+      <p>{post.keyTakeaway}</p>
+    </div>
+
+    <div class="article-layout">
+      <article class="article-body">
+        {
+          paragraphs.map((para) =>
+            para.type === "h2" ? (
+              <h2 id={para.id}>{para.content}</h2>
+            ) : (
+              <p set:html={para.content} />
+            )
+          )
+        }
+      </article>
+
+      {
+        post.toc && (
+          <aside class="article-sidebar">
+            <div class="toc-panel">
+              <div class="toc-label">In this article</div>
+              {post.toc.map((item, i) => (
+                <div
+                  class={`toc-item ${i === 0 ? "active" : ""}`}
+                  style={i === 0 ? `border-left-color: ${post.color};` : ""}
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+
+            <div
+              class="expert-panel"
+              style={`background: ${post.color}08; border: 1px solid ${post.color}15;`}
+            >
+              <div class="expert-label" style={`color: ${post.color};`}>
+                Source
+              </div>
+              <p>{post.expertCredentials}</p>
+            </div>
+          </aside>
+        )
+      }
+    </div>
+
+    <div class="article-tags">
+      {post.tags.map((t) => <span class="article-tag">{t}</span>)}
+    </div>
+
+    <div class="continue-reading">
+      <div class="label">Continue Reading</div>
+      <p>
+        Explore more insights on Claude models, AI safety, and building
+        trustworthy AI applications.
+      </p>
+      <a class="continue-reading-btn" href="/">Browse All Articles</a>
+    </div>
+  </div>
+</BaseLayout>

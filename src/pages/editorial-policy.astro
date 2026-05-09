@@ -1,0 +1,138 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { siteUrl } from "../content";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Editorial Policy - Claude Model Insights",
+  description:
+    "How Claude Model Insights researches, fact-checks, and maintains content quality.",
+  url: `${siteUrl}/editorial-policy/`,
+  isPartOf: {
+    "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
+  },
+  about: {
+    "@type": "Thing",
+    name: "Editorial Standards",
+    description:
+      "Content research methodology, fact-checking process, and quality standards",
+  },
+};
+---
+
+<BaseLayout
+  title="Editorial Policy | How We Research & Write Content"
+  description="Our editorial policy explains how Claude Model Insights researches, fact-checks, and maintains content quality. Transparency about our process and standards."
+  path="/editorial-policy/"
+  schema={schema}
+>
+  <div class="feed-header">
+    <h1>Editorial Policy</h1>
+  </div>
+
+  <article class="article-body" style="max-width: 760px; margin: 0 auto;">
+    <p>
+      This page explains how content on Claude Model Insights gets
+      researched, written, reviewed, and maintained. Transparency about our
+      process is part of how we earn trust.
+    </p>
+
+    <h2>How We Research</h2>
+    <p>Every article starts with real data, not assumptions. Our research process follows this order:</p>
+    <p>
+      <strong>Keyword and demand research.</strong> We use Ubersuggest and
+      Keywords Everywhere to pull actual search volumes, CPC data, and
+      keyword difficulty scores. When we say a keyword has 110,000 monthly
+      searches, that number came from a live API pull on a specific date,
+      and we state that date.
+    </p>
+    <p>
+      <strong>Competitor analysis.</strong> Before writing on any topic, we
+      review the top 5-10 existing articles in Google's search results. We
+      identify what they cover well, where they fall short, and what
+      questions remain unanswered. Our content targets those gaps.
+    </p>
+    <p>
+      <strong>Primary source verification.</strong> Pricing, features,
+      release dates, and product capabilities are verified against official
+      documentation. We check Anthropic's docs at docs.anthropic.com,
+      official pricing pages, and changelogs. We don't rely on third-party
+      summaries when the primary source is available.
+    </p>
+    <p>
+      <strong>Hands-on testing.</strong> When we review a tool or feature,
+      we use it ourselves first. Claude Code tutorials are written while
+      building actual projects. Model comparisons are based on tasks we've
+      run through both models. We don't review things we haven't touched.
+    </p>
+
+    <h2>How We Write</h2>
+    <p>Our content follows the UC v6.4 content framework, which includes:</p>
+    <ul>
+      <li>
+        <strong>71 algorithmic authorship rules</strong> covering structure,
+        readability, keyword integration, and factual density
+      </li>
+      <li>
+        <strong>9-frame semantic coverage</strong> ensuring every topic is
+        addressed from definition through evaluation
+      </li>
+      <li>
+        <strong>AI-first block architecture</strong> so content can be
+        accurately cited by Google AI Overviews, Bing Copilot, and other
+        answer engines
+      </li>
+      <li>
+        <strong>Humanization pass</strong> to ensure content reads naturally
+        and doesn't carry AI writing fingerprints
+      </li>
+    </ul>
+    <p>
+      Every article targets a minimum 95% compliance score against our
+      internal checklist before publication.
+    </p>
+
+    <h2>How We Handle Accuracy</h2>
+    <p>
+      <strong>Dated claims.</strong> Statistics and market data include the
+      date they were verified. "As of May 2026" isn't decoration; it's a
+      commitment to transparency.
+    </p>
+    <p>
+      <strong>Corrections.</strong> When we get something wrong, we fix it
+      and note the correction at the bottom of the article with the date it
+      was updated. We don't silently edit published claims.
+    </p>
+    <p>
+      <strong>Outdated content.</strong> AI tools change fast. We review
+      published articles quarterly and update them when pricing, features,
+      or capabilities change. Articles that can't be meaningfully updated
+      are marked with a notice.
+    </p>
+
+    <h2>What We Don't Do</h2>
+    <p>
+      We don't accept payment for reviews or coverage. If we ever introduce
+      affiliate links or sponsored content in the future, those will be
+      clearly labeled. As of this writing, we have no paid relationships
+      with any company mentioned on this site, including Anthropic.
+    </p>
+    <p>
+      We don't publish content generated entirely by AI without human
+      review and editing. While we use Claude as a writing tool (that's
+      literally what this site is about), every article is researched,
+      structured, reviewed, and verified by a human editor before
+      publication.
+    </p>
+
+    <h2>Questions About Our Process</h2>
+    <p>
+      If you have concerns about the accuracy of any article, or questions
+      about how we researched a specific claim, please reach out through
+      the <a href="/contact/">contact page</a>. We take corrections
+      seriously and respond to every substantive inquiry.
+    </p>
+  </article>
+</BaseLayout>

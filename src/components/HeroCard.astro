@@ -1,0 +1,47 @@
+---
+import Icon from "./Icon.astro";
+import type { BlogPost } from "../content";
+
+export interface Props {
+  post: BlogPost;
+}
+
+const { post } = Astro.props;
+---
+
+<a
+  class="hero-card"
+  href={`/article/${post.slug}/`}
+  style={`background: linear-gradient(135deg, ${post.color}12 0%, ${post.color}06 100%); border: 1px solid ${post.color}30; display: block; text-decoration: none; color: inherit;`}
+>
+  <div
+    class="hero-card-circle-1"
+    style={`background: ${post.color}08; border: 1px solid ${post.color}12;`}
+  >
+  </div>
+  <div
+    class="hero-card-circle-2"
+    style={`background: ${post.color}06;`}
+  >
+  </div>
+
+  <div class="hero-card-content">
+    <div
+      class="category-badge"
+      style={`background: ${post.color}18; color: ${post.color};`}
+    >
+      {post.category}
+    </div>
+    <h2>{post.title}</h2>
+    <p class="excerpt">{post.excerpt}</p>
+    <div class="hero-card-meta">
+      <span class="meta-icon">
+        <Icon name="clock" size={14} /> {post.readTime}
+      </span>
+      <span>{post.date}</span>
+      <div style="display: flex; gap: 6px;">
+        {post.tags.slice(0, 2).map((t) => <span class="tag">{t}</span>)}
+      </div>
+    </div>
+  </div>
+</a>

@@ -1,0 +1,71 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroCard from "../components/HeroCard.astro";
+import ListCard from "../components/ListCard.astro";
+import {
+  filterTags,
+  posts,
+  siteDescription,
+  siteName,
+  siteUrl,
+} from "../content";
+
+const featured = posts[0];
+const rest = posts.slice(1);
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
+    name: siteName,
+    url: `${siteUrl}/`,
+    description: siteDescription,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${siteUrl}/#organization`,
+    name: siteName,
+    url: siteUrl,
+    description: siteDescription,
+  },
+];
+---
+
+<BaseLayout
+  title={`${siteName} | Expert AI Model Analysis`}
+  description={siteDescription}
+  path="/"
+  type="website"
+  schema={schema}
+>
+  <div>
+    <div class="feed-header">
+      <h1>Latest Insights</h1>
+      <p>
+        Expert analysis of Claude models, AI safety, and building trustworthy
+        AI applications.
+      </p>
+    </div>
+
+    <div class="tag-filters">
+      {
+        filterTags.map((tag) => (
+          <button
+            class={`tag-btn ${tag === "all" ? "active" : ""}`}
+            type="button"
+          >
+            {tag}
+          </button>
+        ))
+      }
+    </div>
+
+    {featured && <HeroCard post={featured} />}
+
+    <div class="list-layout">
+      {rest.map((post, i) => <ListCard post={post} index={i} />)}
+    </div>
+  </div>
+</BaseLayout>

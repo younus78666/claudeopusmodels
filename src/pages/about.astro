@@ -1,0 +1,97 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { siteUrl } from "../content";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  name: "About Claude Model Insights",
+  description:
+    "Claude Model Insights covers Claude AI models, vibe coding tutorials, and AI-assisted development.",
+  url: `${siteUrl}/about/`,
+  mainEntity: {
+    "@type": "Organization",
+    "@id": `${siteUrl}/#organization`,
+    name: "Claude Model Insights",
+    url: siteUrl,
+    description:
+      "Expert analysis of Claude models, AI safety, and building trustworthy AI applications.",
+    founder: {
+      "@type": "Person",
+      "@id": `${siteUrl}/#author`,
+      name: "Muhammad Younus",
+    },
+  },
+};
+---
+
+<BaseLayout
+  title="About Claude Model Insights | Who We Are & Why"
+  description="Claude Model Insights covers Claude AI models, vibe coding tutorials, and AI-assisted development. Written by practitioners who build with these tools daily."
+  path="/about/"
+  schema={schema}
+>
+  <div class="feed-header">
+    <h1>About Claude Model Insights</h1>
+  </div>
+
+  <article class="article-body" style="max-width: 760px; margin: 0 auto;">
+    <p>
+      Claude Model Insights is a publication for people who build things with
+      Claude. Not hype pieces. Not press release rewrites. Practical analysis
+      from someone who actually uses these models every day.
+    </p>
+
+    <p>The site covers three areas:</p>
+
+    <p>
+      <strong>Model deep dives.</strong> When Anthropic releases a new Claude
+      model, we break down what changed, what improved, and what it means for
+      your workflow. We test features hands-on before writing about them.
+    </p>
+
+    <p>
+      <strong>Vibe coding tutorials.</strong> Step-by-step guides for building
+      real applications with Claude Code. Most of our readers don't come from
+      engineering backgrounds, and our tutorials reflect that. Plain language.
+      Real examples. Every prompt spelled out.
+    </p>
+
+    <p>
+      <strong>AI development strategy.</strong> How to pick the right model
+      tier, manage API costs, handle security, and build content that meets
+      Google's E-E-A-T standards in an AI-assisted world.
+    </p>
+
+    <h2>What Makes This Site Different</h2>
+    <p>
+      We don't cover every AI tool under the sun. This site focuses
+      exclusively on Anthropic's Claude ecosystem. That narrow focus means
+      deeper expertise, more specific advice, and zero filler content about
+      tools we haven't used ourselves.
+    </p>
+    <p>
+      Every article includes verified data. When we cite a search volume
+      number, it comes from Ubersuggest or Keywords Everywhere. When we quote
+      a pricing figure, we verify it against the official source on the day
+      of publication. When we compare tools, we've used both.
+    </p>
+
+    <h2>Who Runs This</h2>
+    <p>
+      Claude Model Insights is written and maintained by <a
+        href="/author/muhammad-younus/">Muhammad Younus</a
+      >, a vibe coder and AI development specialist based in Karachi,
+      Pakistan. Read his full bio on the <a href="/author/muhammad-younus/"
+        >author page</a
+      >.
+    </p>
+
+    <h2>Get In Touch</h2>
+    <p>
+      Questions, corrections, or collaboration ideas? Reach out through our <a
+        href="/contact/">contact page</a
+      >.
+    </p>
+  </article>
+</BaseLayout>

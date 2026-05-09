@@ -1,0 +1,37 @@
+---
+import type { BlogPost } from "../content";
+
+export interface Props {
+  post: BlogPost;
+  index?: number;
+}
+
+const { post, index = 0 } = Astro.props;
+const animDelay = `${index * 0.06}s`;
+---
+
+<a
+  class="list-card"
+  href={`/article/${post.slug}/`}
+  style={`animation: fadeIn 0.3s ease ${animDelay} both; text-decoration: none; color: inherit;`}
+>
+  <div
+    class="list-card-accent"
+    style={`background: linear-gradient(180deg, ${post.color}20 0%, ${post.color}08 100%);`}
+  >
+    <span class="icon" style={`color: ${post.color};`}>{post.icon}</span>
+  </div>
+
+  <div class="list-card-body">
+    <div class="category-label" style={`color: ${post.color};`}>
+      {post.category}
+    </div>
+    <h3>{post.title}</h3>
+    <p>{post.excerpt}</p>
+    <div class="meta">
+      <span>{post.date}</span>
+      <span>&middot;</span>
+      <span>{post.readTime}</span>
+    </div>
+  </div>
+</a>
