@@ -1495,6 +1495,13 @@ img {
   font-size: 15.5px;
   color: var(--text-primary);
   line-height: 1.5;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.trust-contact-item .val a {
+  word-break: break-all;
+  overflow-wrap: anywhere;
 }
 
 .trust-contact-item .val a {
