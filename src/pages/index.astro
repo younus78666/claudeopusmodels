@@ -8,7 +8,14 @@ import {
   siteDescription,
   siteName,
   siteUrl,
+  silos,
 } from "../content";
+
+function tagHref(tag: string): string {
+  if (tag === "all") return "/";
+  const silo = silos.find((s) => s.slug === tag);
+  return silo ? silo.href : "/";
+}
 
 const featured = posts[0];
 const rest = posts.slice(1);
@@ -52,12 +59,12 @@ const schema = [
     <div class="tag-filters">
       {
         filterTags.map((tag) => (
-          <button
+          <a
             class={`tag-btn ${tag === "all" ? "active" : ""}`}
-            type="button"
+            href={tagHref(tag)}
           >
             {tag}
-          </button>
+          </a>
         ))
       }
     </div>

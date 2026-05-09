@@ -24,14 +24,76 @@ export const siteDescription =
 
 export const filterTags = [
   "all",
-  "opus",
-  "sonnet",
-  "haiku",
-  "reasoning",
-  "safety",
-  "eeat",
-  "content",
+  "tutorials",
+  "comparisons",
+  "optimization",
+  "security",
+  "industry",
+  "trends",
 ];
+
+export type Silo = {
+  slug: string;
+  label: string;
+  href: string;
+  description: string;
+  startWeek: string;
+};
+
+export const silos: Silo[] = [
+  {
+    slug: "tutorials",
+    label: "Tutorials",
+    href: "/tutorials/",
+    description:
+      "Step-by-step guides for vibe coding with Claude Code, custom skills, and real-world build tutorials.",
+    startWeek: "Week 1",
+  },
+  {
+    slug: "comparisons",
+    label: "Comparisons",
+    href: "/comparisons/",
+    description:
+      "Head-to-head reviews of Claude vs GPT-5.5, Cursor vs Windsurf, Copilot vs Claude Code, and more.",
+    startWeek: "Week 2",
+  },
+  {
+    slug: "optimization",
+    label: "Optimization",
+    href: "/optimization/",
+    description:
+      "Save on API costs, master extended thinking, route between models, and squeeze more out of every Claude session.",
+    startWeek: "Week 2",
+  },
+  {
+    slug: "security",
+    label: "Security",
+    href: "/security/",
+    description:
+      "Hardening AI code, preventing prompt injection, OWASP coverage, and compliance auditing for Claude apps.",
+    startWeek: "Week 4",
+  },
+  {
+    slug: "industry",
+    label: "Industry",
+    href: "/agentic-engineering/",
+    description:
+      "How real industries deploy Claude — financial services, healthcare, legal, real estate, retail, enterprise.",
+    startWeek: "Week 3",
+  },
+  {
+    slug: "trends",
+    label: "Trends",
+    href: "/trends/",
+    description:
+      "Emerging patterns in AI coding, news analysis, future model predictions, and the evolving developer landscape.",
+    startWeek: "Week 3",
+  },
+];
+
+export function postsBySilo(silo: string) {
+  return posts.filter((p) => p.tags.includes(silo));
+}
 
 export const posts: BlogPost[] = [
   {
@@ -45,7 +107,7 @@ export const posts: BlogPost[] = [
     authorRole: "AI Research Analysis",
     date: "Apr 16, 2026",
     readTime: "8 min read",
-    tags: ["opus", "reasoning", "benchmarks"],
+    tags: ["optimization", "opus", "reasoning"],
     color: "#D97757",
     icon: "\u25C6",
     body: `Anthropic's Claude Opus 4 represents a significant leap in what large language models can achieve when given room to think. It's not just a bigger model — it's a fundamentally more deliberate one.
@@ -93,7 +155,7 @@ For simpler tasks where latency matters, Sonnet or Haiku remain better fits. The
     authorRole: "AI Safety Research",
     date: "Apr 12, 2026",
     readTime: "6 min read",
-    tags: ["safety", "constitutional-ai", "trust"],
+    tags: ["security", "safety", "trust"],
     color: "#6B8F7B",
     icon: "\u25C7",
     body: `Constitutional AI (CAI) is Anthropic's core approach to building AI systems that are helpful, harmless, and honest. It's not a marketing term — it's a specific technical methodology with published research behind it.
@@ -142,7 +204,7 @@ This is a feature, not a limitation.`,
     authorRole: "Technical Analysis",
     date: "Apr 9, 2026",
     readTime: "7 min read",
-    tags: ["sonnet", "opus", "haiku", "comparison"],
+    tags: ["comparisons", "sonnet", "opus", "haiku"],
     color: "#7B7FA3",
     icon: "\u25B2",
     body: `Choosing between Claude's model tiers isn't about picking "the best" — it's about matching capability to context. Each tier represents a different point on the capability-speed-cost curve.
@@ -191,7 +253,7 @@ This tiered approach often outperforms using a single model for everything — y
     authorRole: "AI Research Analysis",
     date: "Apr 5, 2026",
     readTime: "6 min read",
-    tags: ["extended-thinking", "reasoning", "prompting"],
+    tags: ["optimization", "reasoning", "prompting"],
     color: "#8B7355",
     icon: "\u25CF",
     body: `Extended thinking is one of Claude's most distinctive capabilities — and one of the most misunderstood. It's not just "thinking longer." It's a fundamentally different mode of processing.
@@ -244,7 +306,7 @@ Extended thinking is particularly valuable for content that needs to demonstrate
     authorRole: "Content Quality Analysis",
     date: "Apr 2, 2026",
     readTime: "9 min read",
-    tags: ["eeat", "content", "seo", "quality"],
+    tags: ["trends", "eeat", "content"],
     color: "#A3787B",
     icon: "\u25A0",
     body: `The intersection of AI-assisted content and Google's E-E-A-T framework isn't a conflict — it's an opportunity. Claude, when used thoughtfully, can help create content that genuinely satisfies each E-E-A-T dimension.
@@ -307,11 +369,15 @@ export const headerLinks = [
 
 export const mobileLinks = [
   { href: "/", label: "Articles", match: "/" },
+  { href: "/tutorials/", label: "Tutorials", match: "/tutorials" },
+  { href: "/comparisons/", label: "Comparisons", match: "/comparisons" },
+  { href: "/optimization/", label: "Optimization", match: "/optimization" },
+  { href: "/security/", label: "Security", match: "/security" },
+  { href: "/agentic-engineering/", label: "Industry", match: "/agentic-engineering" },
+  { href: "/trends/", label: "Trends", match: "/trends" },
   { href: "/about/", label: "About", match: "/about" },
   { href: "/author/muhammad-younus/", label: "Author", match: "/author" },
-  { href: "/editorial-policy/", label: "Editorial Policy", match: "/editorial-policy" },
   { href: "/contact/", label: "Contact", match: "/contact" },
-  { href: "/disclaimer/", label: "Disclaimer", match: "/disclaimer" },
 ];
 
 export const footerSiteLinks = [
@@ -324,6 +390,17 @@ export const footerSiteLinks = [
 export const footerLegalLinks = [
   { href: "/editorial-policy/", label: "Editorial Policy" },
   { href: "/disclaimer/", label: "Disclaimer" },
+  { href: "/privacy-policy/", label: "Privacy Policy" },
+  { href: "/terms/", label: "Terms of Service" },
+];
+
+export const footerCategoryLinks = [
+  { href: "/tutorials/", label: "Tutorials" },
+  { href: "/comparisons/", label: "Comparisons" },
+  { href: "/optimization/", label: "Optimization" },
+  { href: "/security/", label: "Security" },
+  { href: "/agentic-engineering/", label: "Industry" },
+  { href: "/trends/", label: "Trends" },
 ];
 
 export const aboutEeat = [

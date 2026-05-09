@@ -1,0 +1,30 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  accent?: string;
+  eta?: string;
+}
+
+const {
+  title,
+  description,
+  accent = "var(--accent)",
+  eta,
+} = Astro.props;
+---
+
+<div class="coming-soon coming-soon-large">
+  <div class="coming-soon-icon" style={`background: ${accent}18; color: ${accent};`}>
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M12 6v6l4 2"></path>
+    </svg>
+  </div>
+  <h1>{title}</h1>
+  <p>{description}</p>
+  {eta && <p class="coming-soon-eta"><strong>Expected:</strong> {eta}</p>}
+  <p class="coming-soon-cta">
+    Questions in the meantime? <a href="/contact/">Contact us</a>.
+  </p>
+</div>

@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiloArchive from "../components/SiloArchive.astro";
+import { silos, siteUrl } from "../content";
+
+const silo = silos.find((s) => s.slug === "optimization")!;
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: `${silo.label} | Claude Model Insights`,
+  description: silo.description,
+  url: `${siteUrl}${silo.href}`,
+};
+---
+
+<BaseLayout
+  title={`${silo.label} | Claude API Cost & Performance Guides`}
+  description={silo.description}
+  path={silo.href}
+  schema={schema}
+>
+  <SiloArchive silo={silo} accent="#8B7355" />
+</BaseLayout>

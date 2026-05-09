@@ -1064,6 +1064,106 @@ img {
   line-height: 1.55;
 }
 
+/* ---- Coming Soon ---- */
+
+.coming-soon {
+  text-align: center;
+  padding: 48px 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  max-width: 640px;
+  margin: 8px auto;
+}
+
+.coming-soon-large {
+  padding: 64px 32px;
+  margin: 32px auto;
+}
+
+.coming-soon-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 22px;
+}
+
+.coming-soon h1,
+.coming-soon h2 {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+  color: var(--text-primary);
+}
+
+.coming-soon h1 {
+  font-size: 34px;
+}
+
+.coming-soon p {
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 480px;
+  margin: 0 auto 12px;
+}
+
+.coming-soon p strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.coming-soon-cta {
+  margin-top: 18px !important;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-light);
+  font-size: 14px !important;
+}
+
+.coming-soon-cta a {
+  color: var(--accent);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+.coming-soon-eta {
+  font-family: var(--serif);
+  font-style: italic;
+}
+
+/* ---- Article Breadcrumb ---- */
+
+.article-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-tertiary);
+  margin-bottom: 16px;
+}
+
+.article-breadcrumb a {
+  color: var(--text-secondary);
+  transition: color 0.15s;
+}
+
+.article-breadcrumb a:hover {
+  color: var(--accent);
+}
+
+.article-breadcrumb .sep {
+  color: var(--text-tertiary);
+}
+
+.article-breadcrumb .current {
+  color: var(--text-tertiary);
+}
+
 /* ---- Footer ---- */
 
 .site-footer {
@@ -1082,8 +1182,8 @@ img {
 
 .site-footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 48px;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 36px;
   padding-bottom: 32px;
   border-bottom: 1px solid var(--border-light);
 }

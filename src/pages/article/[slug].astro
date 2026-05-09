@@ -1,7 +1,13 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Icon from "../../components/Icon.astro";
-import { posts, siteName, siteUrl, type BlogPost } from "../../content";
+import {
+  posts,
+  siteName,
+  siteUrl,
+  silos,
+  type BlogPost,
+} from "../../content";
 
 export async function getStaticPaths() {
   return posts.map((post) => ({
@@ -17,6 +23,8 @@ interface Props {
 const { post } = Astro.props as Props;
 const path = `/article/${post.slug}/`;
 
+const primarySilo = silos.find((s) => post.tags.includes(s.slug));
+
 const schema = {
   "@context": "https://schema.org",
   "@type": "Article",
@@ -24,12 +32,14 @@ const schema = {
   description: post.excerpt,
   datePublished: post.date,
   author: {
-    "@type": "Organization",
-    name: siteName,
-    url: siteUrl,
+    "@type": "Person",
+    "@id": `${siteUrl}/#author`,
+    name: "Muhammad Younus",
+    url: `${siteUrl}/author/muhammad-younus/`,
   },
   publisher: {
     "@type": "Organization",
+    "@id": `${siteUrl}/#organization`,
     name: siteName,
     url: siteUrl,
   },
@@ -37,6 +47,9 @@ const schema = {
     "@type": "WebPage",
     "@id": `${siteUrl}${path}`,
   },
+  ...(primarySilo && {
+    articleSection: primarySilo.label,
+  }),
 };
 
 const paragraphs = post.body.split("\n\n").map((para, i) => {
@@ -72,6 +85,20 @@ const paragraphs = post.body.split("\n\n").map((para, i) => {
       </a>
     </div>
 
+    <nav class="article-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Articles</a>
+      <span class="sep">›</span>
+      {
+        primarySilo ? (
+          <a href={primarySilo.href}>{primarySilo.label}</a>
+        ) : (
+          <span class="current">{post.category}</span>
+        )
+      }
+      {primarySilo && <span class="sep">›</span>}
+      {primarySilo && <span class="current">{post.category}</span>}
+    </nav>
+
     <div
       class="article-header"
       style={`background: linear-gradient(135deg, ${post.color}10 0%, ${post.color}04 100%); border: 1px solid ${post.color}20;`}
@@ -91,15 +118,18 @@ const paragraphs = post.body.split("\n\n").map((para, i) => {
         <p class="excerpt">{post.excerpt}</p>
 
         <div class="article-author-row">
-          <div style="display: flex; align-items: center; gap: 10px;">
+          <a
+            href="/author/muhammad-younus/"
+            style="display: flex; align-items: center; gap: 10px; text-decoration: none;"
+          >
             <div class="author-avatar" style={`background: ${post.color};`}>
-              C
+              M
             </div>
             <div class="author-info">
-              <div class="author-name">{post.author}</div>
+              <div class="author-name">Muhammad Younus</div>
               <div class="author-role">{post.authorRole}</div>
             </div>
-          </div>
+          </a>
           <div class="author-divider"></div>
           <div class="article-meta">
             <span>{post.date}</span>
@@ -161,7 +191,18 @@ const paragraphs = post.body.split("\n\n").map((para, i) => {
     </div>
 
     <div class="article-tags">
-      {post.tags.map((t) => <span class="article-tag">{t}</span>)}
+      {
+        post.tags.map((t) => {
+          const linked = silos.find((s) => s.slug === t);
+          return linked ? (
+            <a class="article-tag" href={linked.href}>
+              {t}
+            </a>
+          ) : (
+            <span class="article-tag">{t}</span>
+          );
+        })
+      }
     </div>
 
     <div class="continue-reading">

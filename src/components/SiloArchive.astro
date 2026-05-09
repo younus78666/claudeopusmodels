@@ -1,0 +1,52 @@
+---
+import ListCard from "./ListCard.astro";
+import TrustHero from "./TrustHero.astro";
+import { type Silo, postsBySilo } from "../content";
+
+export interface Props {
+  silo: Silo;
+  accent?: string;
+}
+
+const { silo, accent = "var(--accent)" } = Astro.props;
+const articles = postsBySilo(silo.slug);
+const hasArticles = articles.length > 0;
+---
+
+<TrustHero
+  eyebrow="Category"
+  title={silo.label}
+  subtitle={silo.description}
+  accent={accent}
+  meta={hasArticles
+    ? `${articles.length} ${articles.length === 1 ? "article" : "articles"} published`
+    : `Coming soon — first article ${silo.startWeek}`}
+/>
+
+{
+  hasArticles ? (
+    <div class="list-layout">
+      {articles.map((post, i) => (
+        <ListCard post={post} index={i} />
+      ))}
+    </div>
+  ) : (
+    <div class="coming-soon">
+      <div class="coming-soon-icon" style={`background: ${accent}18; color: ${accent};`}>
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 6v6l4 2" />
+        </svg>
+      </div>
+      <h2>Coming Soon</h2>
+      <p>
+        Articles in this category arrive starting <strong>{silo.startWeek}</strong>.
+        We publish two deeply researched pieces per week through August 2026.
+      </p>
+      <p class="coming-soon-cta">
+        In the meantime, browse our <a href="/">latest articles</a> or read about
+        our <a href="/editorial-policy/">editorial process</a>.
+      </p>
+    </div>
+  )
+}

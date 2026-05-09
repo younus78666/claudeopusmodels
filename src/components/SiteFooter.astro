@@ -1,5 +1,6 @@
 ---
 import {
+  footerCategoryLinks,
   footerLegalLinks,
   footerSiteLinks,
   siteName,
@@ -24,6 +25,19 @@ const year = new Date().getFullYear();
         <ul>
           {
             footerSiteLinks.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="site-footer-col">
+        <div class="site-footer-heading">Categories</div>
+        <ul>
+          {
+            footerCategoryLinks.map((link) => (
               <li>
                 <a href={link.href}>{link.label}</a>
               </li>
