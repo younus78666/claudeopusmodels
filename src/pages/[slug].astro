@@ -116,7 +116,7 @@ const paragraphs = post.bodyHtml
 ---
 
 <BaseLayout
-  title={`${post.title} | ${siteName}`}
+  title={post.seoTitle ?? `${post.title} | ${siteName}`}
   description={post.excerpt}
   path={path}
   type="article"

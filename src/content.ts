@@ -2,6 +2,7 @@ export type BlogPost = {
   id: number;
   slug: string;
   title: string;
+  seoTitle?: string;
   excerpt: string;
   category: string;
   author: string;
@@ -23,6 +24,7 @@ export type BlogPost = {
 import {
   vibeCodingTutorialHtml,
   vibeCodingFaqSchema,
+  vibeCodingHowToSchema,
 } from "./articles/vibe-coding-tutorial";
 
 export const siteName = "Claude Model Insights";
@@ -109,6 +111,7 @@ export const posts: BlogPost[] = [
     slug: "how-to-use-claude-code-vibe-coding-tutorial",
     title:
       "How to Build a Full-Stack App with Claude Code: A Vibe Coding Tutorial for Non-Engineers",
+    seoTitle: "How to Use Claude Code: Vibe Coding Tutorial for Beginners",
     excerpt:
       "Build a working full-stack app with Claude Code. No coding experience needed. Step-by-step vibe coding tutorial covering setup, Plan Mode, and deployment.",
     category: "Tutorial",
@@ -138,7 +141,7 @@ export const posts: BlogPost[] = [
       "Vibe coding with Claude Code lets non-engineers build real full-stack apps in a weekend. The non-negotiables: Plan Mode (Shift+Tab x2) before every project, a CLAUDE.md file for session persistence, and small focused change requests during iteration.",
     expertCredentials:
       "Built and deployed dozens of Claude Code projects across the past year. Keyword data verified live in Ubersuggest May 2026. Claude Pro pricing verified against claude.com/pricing.",
-    extraSchema: vibeCodingFaqSchema,
+    extraSchema: [vibeCodingHowToSchema, vibeCodingFaqSchema],
   },
   {
     id: 1,

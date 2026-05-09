@@ -405,6 +405,86 @@ resources exist everywhere.
 </div>
 `;
 
+export const vibeCodingHowToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to Build a Full-Stack App with Claude Code",
+  description:
+    "Step-by-step process for non-engineers to build and run a full-stack web app with Claude Code, from installation through iteration.",
+  totalTime: "PT90M",
+  estimatedCost: {
+    "@type": "MonetaryAmount",
+    currency: "USD",
+    value: "20",
+  },
+  tool: [
+    { "@type": "HowToTool", name: "Claude Pro subscription" },
+    { "@type": "HowToTool", name: "VS Code" },
+    { "@type": "HowToTool", name: "Claude Code (extension or native installer)" },
+  ],
+  supply: [
+    { "@type": "HowToSupply", name: "A project idea (todo list, tracker, etc.)" },
+  ],
+  step: [
+    {
+      "@type": "HowToStep",
+      position: 1,
+      name: "Install Claude Code in VS Code",
+      text: "Open VS Code, click the Extensions icon, search for Claude Code, install the official Anthropic extension, then sign in to your Claude account once when prompted.",
+      url: "https://claudeopusmodels.com/how-to-use-claude-code-vibe-coding-tutorial/#step-1",
+    },
+    {
+      "@type": "HowToStep",
+      position: 2,
+      name: "Create your project folder",
+      text: "Create an empty folder named after your project (habit-tracker, recipe-app), then in VS Code use File > Open Folder to select it. Every file Claude generates lives here.",
+      url: "https://claudeopusmodels.com/how-to-use-claude-code-vibe-coding-tutorial/#step-2",
+    },
+    {
+      "@type": "HowToStep",
+      position: 3,
+      name: "Start a session and enter Plan Mode",
+      text: "Open the Claude chat panel, press Shift+Tab twice to activate Plan Mode, then describe your project. Claude asks 5-10 clarifying questions before writing any code.",
+      url: "https://claudeopusmodels.com/how-to-use-claude-code-vibe-coding-tutorial/#step-3",
+    },
+    {
+      "@type": "HowToStep",
+      position: 4,
+      name: "Review the plan and approve",
+      text: "Read the implementation plan Claude produces. Confirm it matches your vision, remove unwanted features, then tell Claude to proceed.",
+      url: "https://claudeopusmodels.com/how-to-use-claude-code-vibe-coding-tutorial/#step-4",
+    },
+    {
+      "@type": "HowToStep",
+      position: 5,
+      name: "Watch Claude build and approve files",
+      text: "Claude generates files one by one and asks permission for each. Approve individually or use Accept All. A simple project takes 3-8 minutes.",
+      url: "https://claudeopusmodels.com/how-to-use-claude-code-vibe-coding-tutorial/#step-5",
+    },
+    {
+      "@type": "HowToStep",
+      position: 6,
+      name: "Run your app locally",
+      text: "Ask Claude how to run the app. Usually two commands: npm install then npm run dev. Open the localhost URL in your browser.",
+      url: "https://claudeopusmodels.com/how-to-use-claude-code-vibe-coding-tutorial/#step-6",
+    },
+    {
+      "@type": "HowToStep",
+      position: 7,
+      name: "Request changes in plain English",
+      text: "Describe each fix or feature in one focused message. Claude shows its plan, you approve, files update. One change per message produces the most reliable results.",
+      url: "https://claudeopusmodels.com/how-to-use-claude-code-vibe-coding-tutorial/#step-7",
+    },
+    {
+      "@type": "HowToStep",
+      position: 8,
+      name: "Create your CLAUDE.md file",
+      text: "Ask Claude to create a CLAUDE.md describing tech stack, file structure, conventions, and current status. Claude reads this at the start of every new session for persistent context.",
+      url: "https://claudeopusmodels.com/how-to-use-claude-code-vibe-coding-tutorial/#step-8",
+    },
+  ],
+};
+
 export const vibeCodingFaqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
